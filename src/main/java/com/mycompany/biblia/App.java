@@ -1,13 +1,15 @@
 package com.mycompany.biblia;
 
+import com.mycompany.biblia.InteractiveCommandline;
+
 /**
- * Hello world!
+ * Biblia App.
  *
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+       (new InteractiveCommandline()).run();
     }
 }
