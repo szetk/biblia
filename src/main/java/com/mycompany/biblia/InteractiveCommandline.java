@@ -1,5 +1,6 @@
 package com.mycompany.biblia;
 
+import com.mycompany.domain.Viite;
 import java.io.*;
 import java.util.*;
 
@@ -71,7 +72,7 @@ public class InteractiveCommandline
    /**
     * Get reference fields interactively.
     */
-   private void getReference() throws IOException {
+   private Viite getReference() throws IOException {
       String reftype = getOption("referenssin tyyppi", refTypes);
 
       HashMap<String,String> fields = new HashMap<String,String>();
@@ -79,8 +80,9 @@ public class InteractiveCommandline
       for (String field : refFields) {
          fields.put(field, getValue(field + ": "));
       }
+      
+      return new Viite();
 
-      // TODO this absolutely must not be void but a Reference!
    }
 
    /**
