@@ -124,5 +124,15 @@ public class Viite {
         return pages;
     }
     
+    //Aika suoraviivainen metodi, tällä saadaan siis bibtext muotoon kirjaviite
+    @Override
+    public String toString() {
+        String inOneString = "@Book{ \""+ id + "\", \nauthor = \"" + author + "\",\n" +
+                "publisher  = \"" + publisher + "\", \n" +
+                "title  = \"" + title + "\", \n" +
+                "year   = \"" + year + "\"\n }";
+        
+        return inOneString;
+    }
 
 }
