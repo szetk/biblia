@@ -1,6 +1,5 @@
 package com.mycompany.biblia;
 
-import com.mycompany.domain.Viite;
 import java.io.*;
 import java.util.*;
 

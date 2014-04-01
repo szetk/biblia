@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.domain;
+package com.mycompany.biblia;
 
 public class Viite {
     //Nämä kaikilla viitteillä

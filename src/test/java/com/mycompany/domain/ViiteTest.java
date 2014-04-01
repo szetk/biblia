@@ -6,6 +6,7 @@
 
 package com.mycompany.domain;
 
+import com.mycompany.biblia.Viite;
 import junit.framework.TestCase;
 
 public class ViiteTest extends TestCase {
