@@ -12,9 +12,9 @@ public class InteractiveCommandline
  {
 
    private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-   
    private static BufferedReader br =
       new BufferedReader(new InputStreamReader(System.in));
+   
 
    
    
@@ -82,7 +82,6 @@ public class InteractiveCommandline
     */
    private Viite getReference() throws IOException {
       String reftype = getOption("referenssin tyyppi", refTypes);
-       System.out.println(reftype);
 
       HashMap<String,String> fields = new HashMap<String,String>();
 

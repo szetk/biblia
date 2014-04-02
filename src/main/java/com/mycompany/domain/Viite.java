@@ -35,6 +35,7 @@ public class Viite {
         this.title = title;
         this.year = year;
     }
+    public Viite(){}
 
     public void setId(String id) {
         this.id = id;
