@@ -27,10 +27,11 @@ public class Tallenna {
     }
     
     public void tallennaTiedostoon() {
+        System.out.println("Tallennetaan tiedostoon Biblia.bib");
         File f = new File("Biblia.bib");
         try {
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true)));
-        writer.write(tallennettava);
+        writer.append(tallennettava);
         writer.flush();
         writer.close();
         } catch (IOException ex) {

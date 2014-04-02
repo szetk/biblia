@@ -28,7 +28,7 @@ public class Viite {
     //Tämä article- ja inproceedings-viitteillä (vapaaehtoinen)
     private String pages;
     
-    public void Viite(String id, String author, String title, int year){
+    public Viite(String id, String author, String title, int year){
         //Muut kuin nämä (pakolliset) asetetaan erikseen
         this.id = id;
         this.author = author;
