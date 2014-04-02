@@ -14,11 +14,7 @@ public class InteractiveCommandline
    private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
    private static BufferedReader br =
       new BufferedReader(new InputStreamReader(System.in));
-   
 
-   
-   
-   
 
    // TODO This does not belong here.
    private Collection<String> refTypes;
@@ -29,7 +25,6 @@ public class InteractiveCommandline
    // TODO  or this.
    // private BibliaStore;
    
-   //Ei kuulu tänne(?)
 
    /**
     *
@@ -88,6 +83,7 @@ public class InteractiveCommandline
       for (String field : refFields) {
          fields.put(field, getValue(field + ": "));
       }
+      //TODO tarkista että vuosi on int
       return new Viite("aa",fields.get("title"),fields.get("author"),Integer.parseInt(fields.get("year")));
 
    }
