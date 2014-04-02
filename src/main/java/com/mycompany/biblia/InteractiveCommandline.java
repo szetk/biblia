@@ -82,6 +82,7 @@ public class InteractiveCommandline
     */
    private Viite getReference() throws IOException {
       String reftype = getOption("referenssin tyyppi", refTypes);
+       System.out.println(reftype);
 
       HashMap<String,String> fields = new HashMap<String,String>();
 
@@ -144,7 +145,6 @@ public class InteractiveCommandline
    }
    
        private void talleta(Viite ref){
-           System.out.println("asdasd");
         Tallenna save = new Tallenna(ref.toString());
         save.tallennaTiedostoon();
         System.out.println(ref);
