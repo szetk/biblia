@@ -33,8 +33,7 @@ public class ViiteTest extends TestCase {
         String author = "";
         String title = "";
         int year = 0;
-        Viite instance = new Viite();
-        instance.Viite(id, author, title, year);
+        Viite instance = new Viite(id, author, title, year);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

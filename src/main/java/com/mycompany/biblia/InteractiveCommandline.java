@@ -1,6 +1,7 @@
 package com.mycompany.biblia;
 
 import com.mycompany.domain.Viite;
+import com.mycompany.domain.Tallenna;
 import java.io.*;
 import java.util.*;
 
@@ -11,9 +12,13 @@ public class InteractiveCommandline
  {
 
    private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-
    private static BufferedReader br =
       new BufferedReader(new InputStreamReader(System.in));
+   
+
+   
+   
+   
 
    // TODO This does not belong here.
    private Collection<String> refTypes;
@@ -23,6 +28,8 @@ public class InteractiveCommandline
 
    // TODO  or this.
    // private BibliaStore;
+   
+   //Ei kuulu tänne(?)
 
    /**
     *
@@ -35,6 +42,7 @@ public class InteractiveCommandline
       this.refFields = new ArrayList<String>();
       this.refFields.add("title");
       this.refFields.add("author");
+      this.refFields.add("year");
    }
 
    /**
@@ -58,8 +66,8 @@ public class InteractiveCommandline
     */
    private void processAction(char action) throws IOException {
       switch (action) {
-         case 'u': getReference();
-                   System.out.println("Tietokanta ei tuettu"); // TODO biblia.push(^)
+         case 'u': talleta(getReference());
+                   //System.out.println("Tietokanta ei tuettu"); // TODO biblia.push(^)
                    break;
          case 'l': System.out.println("Toiminto ei tuettu");
                    break;
@@ -80,8 +88,7 @@ public class InteractiveCommandline
       for (String field : refFields) {
          fields.put(field, getValue(field + ": "));
       }
-      
-      return new Viite();
+      return new Viite("aa",fields.get("title"),fields.get("author"),Integer.parseInt(fields.get("year")));
 
    }
 
@@ -135,4 +142,12 @@ public class InteractiveCommandline
    private void log(String str) {
       System.out.print(str);
    }
+   
+       private void talleta(Viite ref){
+        Tallenna save = new Tallenna(ref.toString());
+        save.tallennaTiedostoon();
+        System.out.println(ref);
+
 }
+}
+
