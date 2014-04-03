@@ -141,7 +141,7 @@ public class InteractiveCommandline
    
        private void talleta(Viite ref){
         Tallenna save = new Tallenna(ref.toString());
-        save.tallennaTiedostoon();
+        save.tallennaTiedostoon("Biblia.bib");
         System.out.println(ref);
 
 }
