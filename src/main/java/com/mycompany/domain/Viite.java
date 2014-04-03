@@ -11,7 +11,11 @@ public class Viite {
     private String id;
     private String author;
     private String title;
-    private int year;
+    private int year; // Stringiksi
+    
+    // HashMap kentat<String, ArrayList<String>>;
+    // private String viitetyyppi;
+    
     
     //Nämä kaikilla viitteillä (vapaaehtoisia)
     private String address;
@@ -127,11 +131,11 @@ public class Viite {
     
     //Aika suoraviivainen metodi, tällä saadaan siis bibtext muotoon kirjaviite
     @Override
-    public String toString() {
+    public String toString() { // Korvaa @Book -> viitetyyppi
         String inOneString = "@Book{ \""+ id + "\", \nauthor = \"" + author + "\",\n" +
                 "publisher  = \"" + publisher + "\", \n" +
                 "title  = \"" + title + "\", \n" +
-                "year   = \"" + year + "\"\n }";
+                "year   = \"" + year + "\"\n }\n";
         
         return inOneString;
     }
