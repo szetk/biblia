@@ -79,7 +79,7 @@ public class CommandlineStub
     * Get reference fields interactively.
     */
    private Viite getReference() throws IOException {
-      String reftype = getOption("referenssin tyyppi", refTypes);
+     // String reftype = getOption("referenssin tyyppi", refTypes);
 
       HashMap<String,String> fields = new HashMap<String,String>();
 
@@ -108,7 +108,7 @@ public class CommandlineStub
    /**
     * Get an option from a list of options.
     */
-   private String getOption(String desc, Collection<String> options) throws IOException {
+   /*private String getOption(String desc, Collection<String> options) throws IOException {
       int n = 0;
       ArrayList<String> optionsArray = new ArrayList<String>();
 
@@ -124,7 +124,7 @@ public class CommandlineStub
 
       // FIXME Array index may be out of bounds!
       return optionsArray.get(chosen);
-   }
+   }*/
 
 
    /**
@@ -147,12 +147,12 @@ public class CommandlineStub
    
        private void talleta(Viite ref){
         Tallenna save = new Tallenna(ref.toString());
-        save.tallennaTiedostoon();
+        save.tallennaTiedostoon("Biblia.bib");
         prints.add("Viitteen luonti onnistui");
 
 }
        public ArrayList<String> tulosteet(){
-           return this.args;
+           return this.prints;
        }
 }
 

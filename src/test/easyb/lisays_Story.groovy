@@ -6,12 +6,12 @@ description 'Artona haluan lisätä viitteen'
 
 scenario "Syötetään oikeat tiedot", {
     given 'valitaan lisäys', {
-        ArrayList args = new ArrayList();
+        args = new ArrayList();
         args.add("u")
         args.add("title")
         args.add("author")
         args.add("1999")
-        CommandlineStub cmd = new CommandlineStub(args)
+        cmd = new CommandlineStub(args)
     }
 
     when 'lisäyksen tiedot on syötetty oikein', {
@@ -19,7 +19,7 @@ scenario "Syötetään oikeat tiedot", {
     }
 
     then 'lisäys luodaan', {
-       cmd.getPrints().shouldHave("Viitteen luonti onnistui")
+       cmd.tulosteet().shouldHave("Viitteen luonti onnistui")
     }
 }
 

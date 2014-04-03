@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Biblia App.
  *
  */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
