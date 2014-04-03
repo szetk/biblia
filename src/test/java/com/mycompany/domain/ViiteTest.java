@@ -29,13 +29,16 @@ public class ViiteTest extends TestCase {
      */
     public void testViite() {
         System.out.println("Viite");
-        String id = "";
-        String author = "";
-        String title = "";
+        String id = "123";
+        String author = "tekija";
+        String title = "otsikko";
         int year = 0;
         Viite instance = new Viite(id, author, title, year);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(id, instance.getId());
+        assertEquals(author, instance.getAuthor());
+        assertEquals(title, instance.getTitle());
+        assertEquals(year, instance.getYear());
+        
     }
 
     /**
@@ -43,11 +46,10 @@ public class ViiteTest extends TestCase {
      */
     public void testSetId() {
         System.out.println("setId");
-        String id = "";
+        String id = "123";
         Viite instance = new Viite();
         instance.setId(id);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(id, instance.getId());
     }
 
     /**
@@ -58,8 +60,7 @@ public class ViiteTest extends TestCase {
         String author = "";
         Viite instance = new Viite();
         instance.setAuthor(author);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(author, instance.getAuthor());
     }
 
     /**
@@ -70,8 +71,7 @@ public class ViiteTest extends TestCase {
         String title = "";
         Viite instance = new Viite();
         instance.setTitle(title);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(title, instance.getTitle());
     }
 
     /**
@@ -82,8 +82,7 @@ public class ViiteTest extends TestCase {
         int year = 0;
         Viite instance = new Viite();
         instance.setYear(year);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(year, instance.getYear());
     }
 
     /**
@@ -94,8 +93,7 @@ public class ViiteTest extends TestCase {
         String address = "";
         Viite instance = new Viite();
         instance.setAddress(address);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(address, instance.getAddress());
     }
 
     /**
@@ -106,8 +104,7 @@ public class ViiteTest extends TestCase {
         String publisher = "";
         Viite instance = new Viite();
         instance.setPublisher(publisher);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(publisher, instance.getPublisher());
     }
 
     /**
@@ -118,8 +115,7 @@ public class ViiteTest extends TestCase {
         String journal = "";
         Viite instance = new Viite();
         instance.setJournal(journal);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(journal, instance.getJournal());
     }
 
     /**
@@ -130,8 +126,7 @@ public class ViiteTest extends TestCase {
         int number = 0;
         Viite instance = new Viite();
         instance.setNumber(number);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(number, instance.getNumber());
     }
 
     /**
@@ -142,8 +137,7 @@ public class ViiteTest extends TestCase {
         int volume = 0;
         Viite instance = new Viite();
         instance.setVolume(volume);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(volume, instance.getVolume());
     }
 
     /**
@@ -154,8 +148,7 @@ public class ViiteTest extends TestCase {
         String booktitle = "";
         Viite instance = new Viite();
         instance.setBooktitle(booktitle);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(booktitle, instance.getBooktitle());
     }
 
     /**
@@ -166,8 +159,7 @@ public class ViiteTest extends TestCase {
         String pages = "";
         Viite instance = new Viite();
         instance.setPages(pages);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(pages, instance.getPages());
     }
 
     /**
@@ -176,11 +168,10 @@ public class ViiteTest extends TestCase {
     public void testGetId() {
         System.out.println("getId");
         Viite instance = new Viite();
-        String expResult = "";
+        String expResult = "123";
+        instance.setId(expResult);
         String result = instance.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -190,10 +181,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getAuthor");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setAuthor(expResult);
         String result = instance.getAuthor();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -203,10 +193,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getTitle");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setTitle(expResult);
         String result = instance.getTitle();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -216,10 +205,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getYear");
         Viite instance = new Viite();
         int expResult = 0;
+        instance.setYear(expResult);
         int result = instance.getYear();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -229,10 +217,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getAddress");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setAddress(expResult);
         String result = instance.getAddress();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -242,10 +229,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getPublisher");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setPublisher(expResult);
         String result = instance.getPublisher();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -255,10 +241,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getJournal");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setJournal(expResult);
         String result = instance.getJournal();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -268,10 +253,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getNumber");
         Viite instance = new Viite();
         int expResult = 0;
+        instance.setNumber(expResult);
         int result = instance.getNumber();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -281,10 +265,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getVolume");
         Viite instance = new Viite();
         int expResult = 0;
+        instance.setVolume(expResult);
         int result = instance.getVolume();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -294,10 +277,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getBooktitle");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setBooktitle(expResult);
         String result = instance.getBooktitle();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -307,10 +289,9 @@ public class ViiteTest extends TestCase {
         System.out.println("getPages");
         Viite instance = new Viite();
         String expResult = "";
+        instance.setPages(expResult);
         String result = instance.getPages();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

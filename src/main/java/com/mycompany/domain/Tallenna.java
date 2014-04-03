@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.domain;
 
 import java.io.BufferedWriter;
@@ -19,25 +18,24 @@ import java.io.Writer;
  * @author joni
  */
 public class Tallenna {
-    
+
     String tallennettava;
-    
-    public Tallenna(String tallennaTama)  {
+
+    public Tallenna(String tallennaTama) {
         this.tallennettava = tallennaTama;
     }
-    
-    public void tallennaTiedostoon() {
-        System.out.println("Tallennetaan tiedostoon Biblia.bib");
-        File f = new File("Biblia.bib");
+
+    public void tallennaTiedostoon(String tiedostonNimi) {
+        System.out.println("Tallennetaan tiedostoon " + tiedostonNimi);
+        File f = new File(tiedostonNimi);
         try {
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true)));
-        writer.append(tallennettava);
-        writer.flush();
-        writer.close();
+            Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true)));
+            writer.append(tallennettava);
+            writer.flush();
+            writer.close();
         } catch (IOException ex) {
-        System.out.println(ex);
-    }
-    
-    
+            System.out.println(ex);
+        }
+
     }
 }
