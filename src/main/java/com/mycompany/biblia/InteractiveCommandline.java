@@ -3,147 +3,134 @@ package com.mycompany.biblia;
 import com.mycompany.biblia.Viite;
 import com.mycompany.biblia.Tallenna;
 import java.io.*;
+import java.io.PrintStream;
 import java.util.*;
 
 /**
  * Read input interactively from stdin/stdout.
  */
 public class InteractiveCommandline
- {
+{
 
-   private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-   private static BufferedReader br =
-      new BufferedReader(new InputStreamReader(System.in));
+    private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
 
-
-   // TODO This does not belong here.
-   private Collection<String> refTypes;
-
-   // TODO neither does this.
-   private Collection<String> refFields;
-
-   // TODO  or this.
-   // private BibliaStore;
-   
-
-   /**
-    *
-    */
-   public InteractiveCommandline() {
-      this.refTypes = new ArrayList<String>();
-      this.refTypes.add("BOOK");
-      this.refTypes.add("INPROCEEDINGS");
-
-      this.refFields = new ArrayList<String>();
-      this.refFields.add("title");
-      this.refFields.add("author");
-      this.refFields.add("year");
-   }
-
-   /**
-    * Main loop.
-    */
-   public void run() {
-
-      System.out.print(welcomeMsg);
-
-      try {
-         while (true)
-            processAction(getAction());
-      } catch (IOException ioe) {
-         log("IO exception, exiting.");
-         System.exit(1);
-      }
-   }
-
-   /**
-    * Process an action possibly asking for further input.
-    */
-   private void processAction(char action) throws IOException {
-      switch (action) {
-         case 'u': talleta(getReference());
-                   //System.out.println("Tietokanta ei tuettu"); // TODO biblia.push(^)
-                   break;
-         case 'l': System.out.println("Toiminto ei tuettu");
-                   break;
-         case 'q': System.exit(0);
-         default:  System.out.println("Toimintoa ei tunnistettu: " + action);
-                   break;
-      }
-   }
-
-   /**
-    * Get reference fields interactively.
-    */
-   private Viite getReference() throws IOException {
-      String reftype = getOption("referenssin tyyppi", refTypes);
-
-      HashMap<String,String> fields = new HashMap<String,String>();
-
-      for (String field : refFields) {
-         fields.put(field, getValue(field + ": "));
-      }
-    
-      return new Viite("aa",fields.get("title"),fields.get("author"),fields.get("year"));
-
-   }
-
-   /**
-    * Get an option interactively.
-    */
-   private char getAction() throws IOException {
-
-      String result = "";
-
-      while (result.length() < 1) {
-         System.out.println("Anna toiminto (u Uusi viite, l Listaa viitteet, q Poistu)");
-         result = getValue("> ");
-      }
-      return result.charAt(0);
-   }
-
-   /**
-    * Get an option from a list of options.
-    */
-   private String getOption(String desc, Collection<String> options) throws IOException {
-      int n = 0;
-      ArrayList<String> optionsArray = new ArrayList<String>();
-
-      System.out.print("Valitse " + desc + ":");
-      for (String option : options) {
-         optionsArray.add(option);
-         System.out.print(" " + (n++) + " " + option);
-      }
-      System.out.println();
-
-      // FIXME parsing may fail!
-      int chosen = Integer.parseInt(getValue("> "));
-
-      // FIXME Array index may be out of bounds!
-      return optionsArray.get(chosen);
-   }
+    private PrintStream output;
+    private BufferedReader input;
 
 
-   /**
-    * Get input string interactively.
-    */
-   private String getValue(String msg) throws IOException {
-      System.out.print(msg);
-      return br.readLine();
-   }
+    /**
+     *
+     */
+    public InteractiveCommandline(PrintStream output, BufferedReader input) {
+        this.output = output;
+        this.input = input;
+    }
 
-   /**
-    * Logging level messages. NOT input descriptions.
-    */
-   private void log(String str) {
-      System.out.print(str);
-   }
-   
-       private void talleta(Viite ref){
+    /**
+     * Main loop.
+     */
+    public void run() {
+
+        output.print(welcomeMsg);
+
+        try {
+            while (true)
+                processAction(getAction());
+        } catch (IOException ioe) {
+            output.print("IO exception, exiting.");
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Process an action possibly asking for further input.
+     */
+    private void processAction(char action) throws IOException {
+        switch (action) {
+            case 'u': talleta(getReference());
+                      break;
+            case 'l': output.println("Toiminto ei tuettu");
+                      break;
+            case 'q': System.exit(0);
+                      break;
+            case 'p': output.println("Toiminto ei tuettu"); // TODO
+                      break;
+            default:  output.println("Toimintoa ei tunnistettu: " + action);
+                      break;
+        }
+    }
+
+    /**
+     * Get reference fields interactively.
+     */
+    private Viite getReference() throws IOException {
+        // TODO should be Viite.muodostakenttienHashmap().keySet()
+        ArrayList<String> refTypes = new ArrayList<String>();
+        refTypes.add("book");
+        refTypes.add("article");
+        refTypes.add("inproceedings");
+
+        String refType = getOption("referenssin tyyppi", refTypes);
+        // TODO should be Viite.muodostaKenttienHashmap().get(refType)
+        ArrayList<String> refFields = new ArrayList<String>();
+
+        Viite viite = new Viite();
+
+        for (String field : refFields) {
+            output.println("Asked field (not added): " + getValue(field + ": "));
+        }
+
+        return viite;
+    }
+
+    /**
+     * Get an option interactively.
+     */
+    private char getAction() throws IOException {
+
+        String result = "";
+
+        while (result.length() < 1) {
+            output.println("Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, q Poistu)");
+            result = getValue("> ");
+        }
+        return result.charAt(0);
+    }
+
+    /**
+     * Get an option from a list of options.
+     */
+    private String getOption(String desc, Collection<String> options) throws IOException {
+        int n = 0;
+        ArrayList<String> optionsArray = new ArrayList<String>();
+
+        output.print("Valitse " + desc + ":");
+        for (String option : options) {
+            optionsArray.add(option);
+            output.print(" " + (n++) + " " + option);
+        }
+        output.println();
+
+        // FIXME parsing may fail!
+        int chosen = Integer.parseInt(getValue("> "));
+
+        // FIXME Array index may be out of bounds!
+        return optionsArray.get(chosen);
+    }
+
+
+    /**
+     * Get input string interactively.
+     */
+    private String getValue(String msg) throws IOException {
+        output.print(msg);
+        return input.readLine();
+    }
+
+    private void talleta(Viite ref){
         Tallenna save = new Tallenna(ref.toString());
         save.tallennaTiedostoon("Biblia.bib");
-        System.out.println(ref);
-
-}
+        output.println(ref);
+    }
 }
 
