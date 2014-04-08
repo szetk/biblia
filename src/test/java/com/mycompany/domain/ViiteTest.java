@@ -6,6 +6,8 @@
 
 package com.mycompany.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import junit.framework.TestCase;
 
 public class ViiteTest extends TestCase {
@@ -32,7 +34,7 @@ public class ViiteTest extends TestCase {
         String id = "123";
         String author = "tekija";
         String title = "otsikko";
-        int year = 0;
+        String year = "0";
         Viite instance = new Viite(id, author, title, year);
         assertEquals(id, instance.getId());
         assertEquals(author, instance.getAuthor());
@@ -79,7 +81,7 @@ public class ViiteTest extends TestCase {
      */
     public void testSetYear() {
         System.out.println("setYear");
-        int year = 0;
+        String year = "0";
         Viite instance = new Viite();
         instance.setYear(year);
         assertEquals(year, instance.getYear());
@@ -161,6 +163,17 @@ public class ViiteTest extends TestCase {
         instance.setPages(pages);
         assertEquals(pages, instance.getPages());
     }
+    
+    /**
+     * Test of setViitetyyppi method, of class Viite.
+     */
+    public void testSetViitetyyppi() {
+        System.out.println("setViitetyyppi");
+        String pages = "";
+        Viite instance = new Viite();
+        instance.setViitetyyppi(pages);
+        assertEquals(pages, instance.getViitetyyppi());
+    }    
 
     /**
      * Test of getId method, of class Viite.
@@ -204,9 +217,9 @@ public class ViiteTest extends TestCase {
     public void testGetYear() {
         System.out.println("getYear");
         Viite instance = new Viite();
-        int expResult = 0;
+        String expResult = "0";
         instance.setYear(expResult);
-        int result = instance.getYear();
+        String result = instance.getYear();
         assertEquals(expResult, result);
     }
 
@@ -292,6 +305,67 @@ public class ViiteTest extends TestCase {
         instance.setPages(expResult);
         String result = instance.getPages();
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of getViitetyyppi method, of class Viite.
+     */
+    public void testGetViitetyyppi() {
+        System.out.println("getViitetyyppi");
+        Viite instance = new Viite();
+        String expResult = "";
+        instance.setViitetyyppi(expResult);
+        String result = instance.getViitetyyppi();
+        assertEquals(expResult, result);
+    }    
+    
+//    public void testToString(){
+//        Viite viite = new Viite();
+//        viite.setId("1");
+//        viite.setAuthor("tekija");
+//        viite.setTitle("otsikko");
+//        viite.setPublisher("julkaisija");
+//        viite.setYear(1999);
+//        
+//        assertEquals("@Book{\"1\",\n" +
+//            "author = \"tekija\",\n" +
+//            "publisher = \"julkaisija\",\n" +
+//            "title = \"otsikko\",\n" +
+//            "year = \"1999\"\n" +
+//            "}", viite.toString());
+//    }
+
+    /**
+     * Test of muodostaKenttienHashmap method, of class Viite.
+     */
+    public void testMuodostaKenttienHashmap() {
+        System.out.println("muodostaKenttienHashmap");
+        Viite instance = new Viite();
+        HashMap<String, ArrayList<String>> result = instance.muodostaKenttienHashmap();
+        assertEquals(result.get("book").contains("id"), true);
+        assertEquals(result.get("article").contains("pages"), true);
+    }
+
+    /**
+     * Test of getKentat method, of class Viite.
+     */
+    public void testGetKentat() {
+        System.out.println("getKentat");
+        Viite instance = new Viite();
+        HashMap<String, ArrayList<String>> expResult = null;
+        HashMap<String, ArrayList<String>> result = instance.getKentat();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of setKentat method, of class Viite.
+     */
+    public void testSetKentat() {
+        System.out.println("setKentat");
+        HashMap<String, ArrayList<String>> kentat = null;
+        Viite instance = new Viite();
+        instance.setKentat(kentat);
+        assertEquals(kentat, instance.getKentat());
     }
     
 }
