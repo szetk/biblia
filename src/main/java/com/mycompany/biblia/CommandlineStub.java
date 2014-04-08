@@ -87,7 +87,7 @@ public class CommandlineStub
          fields.put(field, getValue(field + ": "));
       }
       //TODO tarkista että vuosi on int
-      return new Viite("aa",fields.get("title"),fields.get("author"),Integer.parseInt(fields.get("year")));
+      return new Viite("aa",fields.get("title"),fields.get("author"),fields.get("year"));
 
    }
 
