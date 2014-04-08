@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.mycompany.domain;
+package com.mycompany.biblia;
 
 import java.util.ArrayList;
 import java.util.HashMap;

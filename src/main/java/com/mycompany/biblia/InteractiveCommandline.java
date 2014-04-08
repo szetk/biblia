@@ -1,7 +1,7 @@
 package com.mycompany.biblia;
 
-import com.mycompany.domain.Viite;
-import com.mycompany.domain.Tallenna;
+import com.mycompany.biblia.Viite;
+import com.mycompany.biblia.Tallenna;
 import java.io.*;
 import java.util.*;
 
