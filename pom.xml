@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mycompany</groupId>
@@ -17,43 +17,44 @@
   </properties>
 
   <build>
-     <plugins>
-        <plugin>
-           <groupId>org.codehaus.mojo</groupId>
-           <artifactId>exec-maven-plugin</artifactId>
-	   <version>1.2.1</version>
-           <configuration>
-              <mainClass>com.mycompany.biblia.App</mainClass>
-           </configuration>
-        </plugin>
+    <plugins>
       <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-		<version>2.3.2</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-	<plugin>
-                <groupId>org.easyb</groupId>
-                <artifactId>maven-easyb-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <storyType>html</storyType>
-                    <storyReport>${basedir}/target/easyb/easyb-report.html
-                    </storyReport>
-                </configuration>
-            </plugin>
-     </plugins>
-            
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <mainClass>com.mycompany.biblia.App</mainClass>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.easyb</groupId>
+        <artifactId>maven-easyb-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <storyType>html</storyType>
+          <storyReport>${basedir}/target/easyb/easyb-report.html
+          </storyReport>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <dependencies>
@@ -64,12 +65,11 @@
       <scope>test</scope>
     </dependency>
 
-        <dependency>
-            <groupId>org.easyb</groupId>
-            <artifactId>easyb-core</artifactId>
-            <version>${easyb.version}</version>
-            <scope>test</scope>        
-        </dependency>
-
+    <dependency>
+      <groupId>org.easyb</groupId>
+      <artifactId>easyb-core</artifactId>
+      <version>${easyb.version}</version>
+      <scope>test</scope>        
+    </dependency>
   </dependencies>
 </project>
