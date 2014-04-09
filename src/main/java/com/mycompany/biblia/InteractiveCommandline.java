@@ -53,7 +53,7 @@ public class InteractiveCommandline
                       break;
             case 'q': System.exit(0);
                       break;
-            case 'p': output.println("Toiminto ei tuettu"); // TODO
+            case 'p': talleta(getRawReference());
                       break;
             default:  output.println("Toimintoa ei tunnistettu: " + action);
                       break;
@@ -64,23 +64,32 @@ public class InteractiveCommandline
      * Get reference fields interactively.
      */
     private Viite getReference() throws IOException {
-        // TODO should be Viite.muodostakenttienHashmap().keySet()
-        ArrayList<String> refTypes = new ArrayList<String>();
-        refTypes.add("book");
-        refTypes.add("article");
-        refTypes.add("inproceedings");
+        HashMap<String, ArrayList<String>> dict = (new Viite()).muodostaKenttienHashmap();
+        Set<String> refTypes = dict.keySet();
 
         String refType = getOption("referenssin tyyppi", refTypes);
-        // TODO should be Viite.muodostaKenttienHashmap().get(refType)
-        ArrayList<String> refFields = new ArrayList<String>();
+        ArrayList<String> refFields = dict.get(refType);
 
         Viite viite = new Viite();
+        viite.setViitetyyppi(refType);
 
         for (String field : refFields) {
             output.println("Asked field (not added): " + getValue(field + ": "));
         }
 
         return viite;
+    }
+
+    private Viite getRawReference() throws IOException {
+        ArrayList<String> lines = new ArrayList<String>();
+
+        String input;
+        do {
+            input = getValue("");
+            lines.add(input);
+        } while (input != "");
+
+        return null; // TODO Lue lines
     }
 
     /**
