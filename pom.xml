@@ -18,15 +18,7 @@
 
   <build>
      <plugins>
-        <plugin>
-           <groupId>org.codehaus.mojo</groupId>
-           <artifactId>exec-maven-plugin</artifactId>
-	   <version>1.2.1</version>
-           <configuration>
-              <mainClass>com.mycompany.biblia.App</mainClass>
-           </configuration>
-        </plugin>
-      <plugin>
+	<plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
 		<version>2.3.2</version>
                 <configuration>
@@ -50,6 +42,17 @@
                     <storyType>html</storyType>
                     <storyReport>${basedir}/target/easyb/easyb-report.html
                     </storyReport>
+                </configuration>
+            </plugin>
+   <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+
                 </configuration>
             </plugin>
      </plugins>
