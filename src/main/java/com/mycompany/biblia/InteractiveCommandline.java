@@ -16,6 +16,7 @@ public class InteractiveCommandline
 
     private PrintStream output;
     private BufferedReader input;
+    private boolean doend = false;
 
 
     /**
@@ -34,12 +35,17 @@ public class InteractiveCommandline
         output.print(welcomeMsg);
 
         try {
-            while (true)
+            do {
                 processAction(getAction());
+            } while (!doend);
         } catch (IOException ioe) {
             output.print("IO exception, exiting.");
             System.exit(1);
         }
+    }
+
+    public void endLast() {
+        doend = true;
     }
 
     /**
@@ -73,8 +79,33 @@ public class InteractiveCommandline
         Viite viite = new Viite();
         viite.setViitetyyppi(refType);
 
+        String value;
         for (String field : refFields) {
-            output.println("Asked field (not added): " + getValue(field + ": "));
+            value = getValue(field + ": ");
+
+            if (field == "address") {
+                viite.setAddress(value);
+            } else if (field == "author") {
+                viite.setAuthor(value);
+            } else if (field == "booktitle") {
+                viite.setBooktitle(value);
+            } else if (field == "id") {
+                viite.setId(value);
+            } else if (field == "journal") {
+                viite.setJournal(value);
+            } else if (field == "number") {
+                viite.setNumber(Integer.parseInt(value)); // TODO may fail!
+            } else if (field == "pages") {
+                viite.setPages(value);
+            } else if (field == "publisher") {
+                viite.setPublisher(value);
+            } else if (field == "title") {
+                viite.setTitle(value);
+            } else if (field == "volume") {
+                viite.setVolume(Integer.parseInt(value)); // TODO may fail
+            } else if (field == "year") {
+                viite.setYear(value);
+            }
         }
 
         return viite;
@@ -84,12 +115,16 @@ public class InteractiveCommandline
         ArrayList<String> lines = new ArrayList<String>();
 
         String input;
-        do {
+        for (;;) {
             input = getValue("");
-            lines.add(input);
-        } while (input != "");
+            if (input.length() > 0) {
+                lines.add(input);
+            } else {
+                break;
+            }
+        }
 
-        return null; // TODO Lue lines
+        return null; // TODO Lue "lines"
     }
 
     /**
