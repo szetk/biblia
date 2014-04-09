@@ -1,7 +1,7 @@
 package com.mycompany.biblia;
 
-import com.mycompany.domain.Viite;
-import com.mycompany.domain.Tallenna;
+import com.mycompany.biblia.Viite;
+import com.mycompany.biblia.Tallenna;
 import java.io.*;
 import java.util.*;
 
@@ -83,8 +83,8 @@ public class InteractiveCommandline
       for (String field : refFields) {
          fields.put(field, getValue(field + ": "));
       }
-      //TODO tarkista että vuosi on int
-      return new Viite("aa",fields.get("title"),fields.get("author"),Integer.parseInt(fields.get("year")));
+    
+      return new Viite("aa",fields.get("title"),fields.get("author"),fields.get("year"));
 
    }
 
