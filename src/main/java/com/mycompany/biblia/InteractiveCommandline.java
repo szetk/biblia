@@ -9,15 +9,12 @@ import java.util.*;
 /**
  * Read input interactively from stdin/stdout.
  */
-public class InteractiveCommandline
-{
+public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
-
 
     /**
      *
@@ -53,16 +50,21 @@ public class InteractiveCommandline
      */
     private void processAction(char action) throws IOException {
         switch (action) {
-            case 'u': talleta(getReference());
-                      break;
-            case 'l': output.println("Toiminto ei tuettu");
-                      break;
-            case 'q': System.exit(0);
-                      break;
-            case 'p': talleta(getRawReference());
-                      break;
-            default:  output.println("Toimintoa ei tunnistettu: " + action);
-                      break;
+            case 'u':
+                talleta(getReference());
+                break;
+            case 'l':
+                output.println("Toiminto ei tuettu");
+                break;
+            case 'q':
+                System.exit(0);
+                break;
+            case 'p':
+                talleta(getRawReference());
+                break;
+            default:
+                output.println("Toimintoa ei tunnistettu: " + action);
+                break;
         }
     }
 
@@ -94,7 +96,10 @@ public class InteractiveCommandline
             } else if (field == "journal") {
                 viite.setJournal(value);
             } else if (field == "number") {
-                viite.setNumber(Integer.parseInt(value)); // TODO may fail!
+                try {
+                    viite.setNumber(Integer.parseInt(value)); // TODO may fail!
+                } catch (Exception e) {
+                }
             } else if (field == "pages") {
                 viite.setPages(value);
             } else if (field == "publisher") {
@@ -102,7 +107,10 @@ public class InteractiveCommandline
             } else if (field == "title") {
                 viite.setTitle(value);
             } else if (field == "volume") {
-                viite.setVolume(Integer.parseInt(value)); // TODO may fail
+                try {
+                    viite.setVolume(Integer.parseInt(value)); // TODO may fail
+                } catch (Exception e) {
+                }
             } else if (field == "year") {
                 viite.setYear(value);
             }
@@ -162,7 +170,6 @@ public class InteractiveCommandline
         return optionsArray.get(chosen);
     }
 
-
     /**
      * Get input string interactively.
      */
@@ -171,10 +178,9 @@ public class InteractiveCommandline
         return input.readLine();
     }
 
-    private void talleta(Viite ref){
+    private void talleta(Viite ref) {
         Tallenna save = new Tallenna(ref.toString());
         save.tallennaTiedostoon("Biblia.bib");
         output.println(ref);
     }
 }
-

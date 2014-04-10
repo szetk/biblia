@@ -58,10 +58,10 @@ public class Lataa {
             return false;
         }
         
-          System.out.println(v.getViitetyyppi());
+        /*  System.out.println(v.getViitetyyppi());
          System.out.println(v.getId()); System.out.println(v.getAuthor());
         System.out.println(v.getPublisher());
-         System.out.println(v.getTitle()); System.out.println(v.getYear());
+         System.out.println(v.getTitle()); System.out.println(v.getYear());*/
         return true;
 
         
