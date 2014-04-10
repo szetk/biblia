@@ -57,7 +57,7 @@ public class ViitteidenHallintaTest extends TestCase {
 
             Scanner lukija = new Scanner(new File(tiedostonNimi));
             if (lukija.hasNextLine()) {
-                assertEquals(lukija.nextLine(), "@null{ \"aa\", ");
+                assertEquals(lukija.nextLine(), "@null{ \"aa\",");
             } else {
                 fail("Tiedostoon tallennus ei onnistunut");
             }

@@ -287,10 +287,10 @@ public class Viite {
      */
         @Override
     public String toString() {
-        String inOneString = "@" + viitetyyppi + "{ \""+ id + "\", \nauthor = \"" + author + "\",\n" +
-                "publisher  = \"" + publisher + "\", \n" +
-                "title  = \"" + title + "\", \n" +
-                "year   = \"" + year + "\"\n }\n";
+        String inOneString = "@" + viitetyyppi + "{ \""+ id + "\",\nauthor = \"" + author + "\",\n" +
+                "publisher = \"" + publisher + "\",\n" +
+                "title = \"" + title + "\",\n" +
+                "year = \"" + year + "\"\n}\n";
         
         return inOneString;
     }
