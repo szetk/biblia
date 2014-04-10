@@ -319,21 +319,21 @@ public class ViiteTest extends TestCase {
         assertEquals(expResult, result);
     }    
     
-//    public void testToString(){
-//        Viite viite = new Viite();
-//        viite.setId("1");
-//        viite.setAuthor("tekija");
-//        viite.setTitle("otsikko");
-//        viite.setPublisher("julkaisija");
-//        viite.setYear(1999);
-//        
-//        assertEquals("@Book{\"1\",\n" +
-//            "author = \"tekija\",\n" +
-//            "publisher = \"julkaisija\",\n" +
-//            "title = \"otsikko\",\n" +
-//            "year = \"1999\"\n" +
-//            "}", viite.toString());
-//    }
+    public void testToString(){
+        Viite viite = new Viite();
+        viite.setId("1");
+        viite.setAuthor("tekija");
+        viite.setTitle("otsikko");
+        viite.setPublisher("julkaisija");
+        viite.setYear("1999");
+        
+        assertEquals("@Book{\"1\",\n" +
+            "author = \"tekija\",\n" +
+            "publisher = \"julkaisija\",\n" +
+            "title = \"otsikko\",\n" +
+            "year = \"1999\"\n" +
+            "}", viite.toString());
+    }
 
     /**
      * Test of muodostaKenttienHashmap method, of class Viite.
