@@ -33,20 +33,13 @@ public class ViitteidenHallinta {
         return viitteet;
     }
 
-    public void setViitteet(ArrayList<Viite> viitteet) {
-        this.viitteet = viitteet;
-    }
-
-    public void lataaViitteetTiedostosta(String tiedostonNimi) {
-        try {
-            Lataa lataa = new Lataa(tiedostonNimi);
-            while (lataa.parsiKirja()) {
-                Viite viite = lataa.getViite();
-                viitteet.add(viite);
-            }
-
-        } catch (IOException ex) {
+    public void lataaViitteetTiedostosta(String tiedostonNimi) throws IOException {
+        Lataa lataa = new Lataa(tiedostonNimi);
+        while (lataa.parsiKirja()) {
+            Viite viite = lataa.getViite();
+            viitteet.add(viite);
         }
+
     }
 
     public void tallennaViitteetTiedostoon(String tiedostonNimi) throws FileNotFoundException {
