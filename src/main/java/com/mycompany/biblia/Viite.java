@@ -298,7 +298,7 @@ public class Viite {
      *
      * @return
      */
-    public HashMap<String, ArrayList<String>> getKentat() {
+    /*public HashMap<String, ArrayList<String>> getKentat() {
         return kentat;
     }
 
@@ -314,7 +314,7 @@ public class Viite {
      *
      * @param kentat
      */
-    public void setKentat(HashMap<String, ArrayList<String>> kentat) {
+   /* public void setKentat(HashMap<String, ArrayList<String>> kentat) {
         this.kentat = kentat;
     }
 

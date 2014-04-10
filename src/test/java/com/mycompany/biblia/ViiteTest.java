@@ -349,7 +349,7 @@ public class ViiteTest extends TestCase {
     /**
      * Test of getKentat method, of class Viite.
      */
-    public void testGetKentat() {
+   /* public void testGetKentat() {
         System.out.println("getKentat");
         Viite instance = new Viite();
         HashMap<String, ArrayList<String>> expResult = null;
@@ -360,12 +360,12 @@ public class ViiteTest extends TestCase {
     /**
      * Test of setKentat method, of class Viite.
      */
-    public void testSetKentat() {
+    /*public void testSetKentat() {
         System.out.println("setKentat");
         HashMap<String, ArrayList<String>> kentat = null;
         Viite instance = new Viite();
         instance.setKentat(kentat);
         assertEquals(kentat, instance.getKentat());
     }
-    
+    */
 }
