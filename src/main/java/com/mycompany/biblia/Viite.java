@@ -62,6 +62,7 @@ public class Viite {
      * Muodostetaan HashMap jossa jokaiselle viitetyypille ArrayList joka sisältää kyseisen viitetyypin kentät.
      * Mahdolliset viitetyypit (eli keyt): book, article, inproceedings
      *
+     * @return HashMap
      */
     public static HashMap<String, ArrayList<String>> muodostaKenttienHashmap() {
         HashMap<String, ArrayList<String>> kentat = new HashMap<String, ArrayList<String>>();
@@ -298,24 +299,8 @@ public class Viite {
      *
      * @return
      */
-    /*public HashMap<String, ArrayList<String>> getKentat() {
-        return kentat;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getViitetyyppi() {
         return viitetyyppi;
-    }
-
-    /**
-     *
-     * @param kentat
-     */
-   /* public void setKentat(HashMap<String, ArrayList<String>> kentat) {
-        this.kentat = kentat;
     }
 
     /**

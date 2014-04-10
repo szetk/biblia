@@ -346,26 +346,4 @@ public class ViiteTest extends TestCase {
         assertEquals(result.get("article").contains("pages"), true);
     }
 
-    /**
-     * Test of getKentat method, of class Viite.
-     */
-   /* public void testGetKentat() {
-        System.out.println("getKentat");
-        Viite instance = new Viite();
-        HashMap<String, ArrayList<String>> expResult = null;
-        HashMap<String, ArrayList<String>> result = instance.getKentat();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setKentat method, of class Viite.
-     */
-    /*public void testSetKentat() {
-        System.out.println("setKentat");
-        HashMap<String, ArrayList<String>> kentat = null;
-        Viite instance = new Viite();
-        instance.setKentat(kentat);
-        assertEquals(kentat, instance.getKentat());
-    }
-    */
 }
