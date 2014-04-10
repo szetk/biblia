@@ -1,4 +1,4 @@
-import com.mycompany.biblia.CommandlineStub;
+import com.mycompany.biblia.InteractiveCommandlineTest;
 import com.mycompany.biblia.App;
 import java.util.ArrayList;
 
@@ -6,20 +6,31 @@ description 'Artona haluan lisätä viitteen'
 
 scenario "Syötetään oikeat tiedot", {
     given 'valitaan lisäys', {
-        args = new ArrayList();
+        ict = new InteractiveCommandlineTest();
+
+        args = new ArrayList<String>()
         args.add("u")
-        args.add("title")
+        args.add("0")
+        args.add("id")
         args.add("author")
+        args.add("title")
         args.add("1999")
-        cmd = new CommandlineStub(args)
+        args.add("address")
+        args.add("publisher")
+        args.add("")
+        args.add("journal")
+        args.add("11")
+        args.add("12")
+
+        ict.setInput(args);
     }
 
     when 'lisäyksen tiedot on syötetty oikein', {
-       cmd.run()
+       ict.cmdline.run()
     }
 
     then 'lisäys luodaan', {
-       cmd.tulosteet().shouldHave("Viitteen luonti onnistui")
+       ict.getOutput().shouldHave("Viitteen luonti onnistui")
     }
 }
 

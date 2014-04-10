@@ -182,7 +182,7 @@ public class InteractiveCommandline {
     private void talleta(Viite ref) {
         Tallenna save = new Tallenna(ref.toString());
         save.tallennaTiedostoon("Biblia.bib");
-        output.println(ref);
+        output.println("Viitteen luonti onnistui");
     }
 
     private void listaa() {

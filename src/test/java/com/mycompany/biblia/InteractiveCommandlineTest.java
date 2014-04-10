@@ -2,7 +2,9 @@
 package com.mycompany.biblia;
 
 import java.io.*;
+import java.util.ArrayList;
 import junit.framework.TestCase;
+import org.mockito.stubbing.OngoingStubbing;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,13 +17,25 @@ public class InteractiveCommandlineTest extends TestCase {
 
     BufferedReader input = mock(BufferedReader.class);
 
+    public void setInput(ArrayList<String> args) throws IOException {
+        setUp();
+        cmdline.endLast();
+        OngoingStubbing<String> a = when(input.readLine());
+        for (String arg : args) {
+                a = a.thenReturn(arg);
+        }
+    }
+
+    public String[] getOutput() throws IOException {
+        return baos.toString().split("\\n");
+    }
+
     @Override
     protected void setUp() throws IOException {
         baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         cmdline = new InteractiveCommandline(ps, input);
     }
-
 
     public void testViitteenLisäysKentittäin() throws IOException {
         cmdline.endLast();
