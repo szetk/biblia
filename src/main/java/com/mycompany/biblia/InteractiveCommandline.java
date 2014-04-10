@@ -38,13 +38,12 @@ public class InteractiveCommandline {
                 processAction(getAction());
             } while (!doend);
         } catch (IOException ioe) {
-            output.print("IO exception, exiting.");
-            System.exit(1);
+            output.print("IO exception! Quitting.");
         }
     }
 
     public void endLast() {
-        doend = true;
+        this.doend = true;
     }
 
     /**
@@ -59,7 +58,7 @@ public class InteractiveCommandline {
                 listaa();
                 break;
             case 'q':
-                System.exit(0);
+                endLast();
                 break;
             case 'p':
                 talleta(getRawReference());
