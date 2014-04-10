@@ -18,9 +18,12 @@ public class Lataa {
 
     private String tiedostoNimi;
     private Viite v;
+    private BufferedReader reader;
 
-    public Lataa(String tiedostoNimi) {
+    public Lataa(String tiedostoNimi) throws FileNotFoundException, IOException {
         this.tiedostoNimi = tiedostoNimi;
+        this.reader = new BufferedReader(new FileReader(tiedostoNimi));
+
     }
 
     /**
@@ -29,11 +32,11 @@ public class Lataa {
      *
      * Myöhemmin voidaan lisätä esimerkiksi tyhjyystarkastukset jos on tarvetta.
      *
+     * @return 
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public boolean parsiKirja() throws FileNotFoundException, IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(tiedostoNimi));
+    public boolean parsiKirja(){
         v = new Viite();
         try {
             String viitetyyppiJaId = reader.readLine();
@@ -53,19 +56,18 @@ public class Lataa {
             String year = reader.readLine();
             tokens = year.split(delims);
             v.setYear(tokens[1]);
+            String loppushaiba = reader.readLine(); // Jotta voidaan sit lukea seuraava
         } catch (Exception e) {
-            System.out.println("Virhe tiedostoa luettaessa");
+            System.out.println("Tiedoston luku on päättynyt");
             return false;
         }
-        
+
         /*  System.out.println(v.getViitetyyppi());
          System.out.println(v.getId()); System.out.println(v.getAuthor());
-        System.out.println(v.getPublisher());
+         System.out.println(v.getPublisher());
          System.out.println(v.getTitle()); System.out.println(v.getYear());*/
         return true;
 
-        
-         
     }
 
     public Viite getViite() {

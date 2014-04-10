@@ -5,6 +5,8 @@ import com.mycompany.biblia.Tallenna;
 import java.io.*;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Read input interactively from stdin/stdout.
@@ -54,7 +56,7 @@ public class InteractiveCommandline {
                 talleta(getReference());
                 break;
             case 'l':
-                output.println("Toiminto ei tuettu");
+                listaa();
                 break;
             case 'q':
                 System.exit(0);
@@ -182,5 +184,19 @@ public class InteractiveCommandline {
         Tallenna save = new Tallenna(ref.toString());
         save.tallennaTiedostoon("Biblia.bib");
         output.println(ref);
+    }
+
+    private void listaa() {
+        try {
+            Lataa lataa = new Lataa("Biblia.bib");
+            output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
+            while (lataa.parsiKirja()) {
+                Viite viite = lataa.getViite();
+                output.println(viite.getId() + ", " + viite.getViitetyyppi()+ ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
