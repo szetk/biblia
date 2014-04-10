@@ -1,0 +1,68 @@
+
+
+
+u
+1
+SWEBOK
+<enter>
+Guide to the Software Engineering Body of Knownledge
+2004
+<enter> 
+IEE Computer Sciety
+u
+1
+BA04
+Beck, Kent and Andres, Cynthia
+Extreme Programming Explained: Embrace Change (2nd Edition)
+2004
+<enter> 
+Addison-Wesley Professional
+u
+1
+Martin09
+Beck, Kent and Andres, Cynthia
+Extreme Programming Explained: Embrace Change (2nd Edition)
+2004
+<enter> 
+Prentice Hall
+u
+1
+scrum
+Ken Schwaber and Mike Beedle
+Agile Software Development with SCRUM
+2002
+<enter> 
+Prentice Hall
+u
+2
+Begel_2008
+Begel, Andrew and Simon, Beth
+Struggles of new college graduates in their first software development job
+2008
+<enter>
+ACM
+Proceedings of the SIGCSE '08
+<enter>
+u
+2
+reyce70
+Royce Walker
+Managing the Development of Large Software Systems
+1970
+<enter>
+<enter>
+Proceedings of IEEE WESCON 26
+u
+0
+Fox, Armando and Patterson, David
+Crossing the software education chasm
+2012
+New York, NY, USA
+ACM 
+44--49
+Communications of ACM
+55 
+5
+
+
+
