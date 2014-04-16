@@ -10,9 +10,9 @@ import java.io.*;
  */
 public class App
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws UnsupportedEncodingException
     {
-       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
        (new InteractiveCommandline(System.out, br)).run();
     }
 }
