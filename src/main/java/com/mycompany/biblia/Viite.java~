@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 public class Viite {
     
+    HashMap <String, ArrayList<String>> kentat; // viitetyypeillä lista kyseisen viitetyypin mahdollisista kentistä
     private String viitetyyppi; // book, article tai inproceedings
     
     //Nämä kaikilla viitteillä
@@ -61,12 +62,12 @@ public class Viite {
     /**
      * Muodostetaan HashMap jossa jokaiselle viitetyypille ArrayList joka sisältää kyseisen viitetyypin kentät.
      * Mahdolliset viitetyypit (eli keyt): book, article, inproceedings
-     *
-     * @return HashMap
+     * 
+     * @return kentat
      */
-    public static HashMap<String, ArrayList<String>> muodostaKenttienHashmap() {
-        HashMap<String, ArrayList<String>> kentat = new HashMap<String, ArrayList<String>>();
-       
+    public HashMap<String, ArrayList<String>> muodostaKenttienHashmap() {
+        this.kentat = new HashMap<String, ArrayList<String>>();
+        
         ArrayList<String> kirjanKentat = new ArrayList<String>();
         kirjanKentat.add("id");
         kirjanKentat.add("author");
@@ -74,7 +75,7 @@ public class Viite {
         kirjanKentat.add("year");
         kirjanKentat.add("address");
         kirjanKentat.add("publisher");
-       
+        
         ArrayList<String> articlenKentat = new ArrayList<String>();
         articlenKentat.add("id");
         articlenKentat.add("author");
@@ -86,7 +87,7 @@ public class Viite {
         articlenKentat.add("journal");
         articlenKentat.add("volume");
         articlenKentat.add("number");
-       
+        
         ArrayList<String> inprocKentat = new ArrayList<String>();
         inprocKentat.add("id");
         inprocKentat.add("author");
@@ -96,12 +97,12 @@ public class Viite {
         inprocKentat.add("publisher");
         inprocKentat.add("booktitle");
         inprocKentat.add("pages");
-       
-        kentat.put("book", kirjanKentat);
-        kentat.put("article", articlenKentat);
-        kentat.put("inproceedings", inprocKentat);
-       
-        return kentat;
+        
+        this.kentat.put("book", kirjanKentat);
+        this.kentat.put("article", articlenKentat);
+        this.kentat.put("inproceedings", inprocKentat);
+        
+        return this.kentat;
     }
 
     /**
@@ -287,10 +288,10 @@ public class Viite {
      */
         @Override
     public String toString() {
-        String inOneString = "@" + viitetyyppi + "{ \""+ id + "\",\nauthor = \"" + author + "\",\n" +
-                "publisher = \"" + publisher + "\",\n" +
-                "title = \"" + title + "\",\n" +
-                "year = \"" + year + "\"\n}\n";
+        String inOneString = "@" + viitetyyppi + "{ \""+ id + "\", \nauthor = \"" + author + "\",\n" +
+                "publisher  = \"" + publisher + "\", \n" +
+                "title  = \"" + title + "\", \n" +
+                "year   = \"" + year + "\"\n }\n";
         
         return inOneString;
     }
@@ -299,8 +300,24 @@ public class Viite {
      *
      * @return
      */
+    public HashMap<String, ArrayList<String>> getKentat() {
+        return kentat;
+    }
+
+    /**
+     *
+     * @return
+     */
     public String getViitetyyppi() {
         return viitetyyppi;
+    }
+
+    /**
+     *
+     * @param kentat
+     */
+    public void setKentat(HashMap<String, ArrayList<String>> kentat) {
+        this.kentat = kentat;
     }
 
     /**

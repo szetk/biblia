@@ -2,6 +2,7 @@ package com.mycompany.biblia;
 
 import com.mycompany.biblia.InteractiveCommandline;
 import java.util.ArrayList;
+import java.io.*;
 
 /**
  * Biblia App.
@@ -9,8 +10,9 @@ import java.util.ArrayList;
  */
 public class App
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws UnsupportedEncodingException
     {
-       (new InteractiveCommandline()).run();
+       BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+       (new InteractiveCommandline(System.out, br)).run();
     }
 }

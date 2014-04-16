@@ -319,21 +319,22 @@ public class ViiteTest extends TestCase {
         assertEquals(expResult, result);
     }    
     
-//    public void testToString(){
-//        Viite viite = new Viite();
-//        viite.setId("1");
-//        viite.setAuthor("tekija");
-//        viite.setTitle("otsikko");
-//        viite.setPublisher("julkaisija");
-//        viite.setYear(1999);
-//        
-//        assertEquals("@Book{\"1\",\n" +
-//            "author = \"tekija\",\n" +
-//            "publisher = \"julkaisija\",\n" +
-//            "title = \"otsikko\",\n" +
-//            "year = \"1999\"\n" +
-//            "}", viite.toString());
-//    }
+    public void testToString(){
+        Viite viite = new Viite();
+        viite.setViitetyyppi("Book");
+        viite.setId("1");
+        viite.setAuthor("tekija");
+        viite.setTitle("otsikko");
+        viite.setPublisher("julkaisija");
+        viite.setYear("1999");
+        
+        assertEquals("@Book{ \"1\",\n" +
+            "author = \"tekija\",\n" +
+            "publisher = \"julkaisija\",\n" +
+            "title = \"otsikko\",\n" +
+            "year = \"1999\"\n" +
+            "}\n", viite.toString());
+    }
 
     /**
      * Test of muodostaKenttienHashmap method, of class Viite.
@@ -346,26 +347,4 @@ public class ViiteTest extends TestCase {
         assertEquals(result.get("article").contains("pages"), true);
     }
 
-    /**
-     * Test of getKentat method, of class Viite.
-     */
-    public void testGetKentat() {
-        System.out.println("getKentat");
-        Viite instance = new Viite();
-        HashMap<String, ArrayList<String>> expResult = null;
-        HashMap<String, ArrayList<String>> result = instance.getKentat();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setKentat method, of class Viite.
-     */
-    public void testSetKentat() {
-        System.out.println("setKentat");
-        HashMap<String, ArrayList<String>> kentat = null;
-        Viite instance = new Viite();
-        instance.setKentat(kentat);
-        assertEquals(kentat, instance.getKentat());
-    }
-    
 }

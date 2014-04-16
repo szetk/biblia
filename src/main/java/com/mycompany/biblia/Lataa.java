@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.biblia;
 
 import java.io.BufferedReader;
@@ -16,50 +15,62 @@ import java.io.IOException;
  * @author joni
  */
 public class Lataa {
-    
+
     private String tiedostoNimi;
-    
-    public Lataa(String tiedostoNimi) {
+    private Viite v;
+    private BufferedReader reader;
+
+    public Lataa(String tiedostoNimi) throws FileNotFoundException, IOException {
         this.tiedostoNimi = tiedostoNimi;
+        this.reader = new BufferedReader(new FileReader(tiedostoNimi));
+
     }
-    
+
     /**
      * Lataa tiedostosta YHDEN viitteen ja parsii sen rivi kerrallaan
      * stringeiksi, joista tokenisoidaan viitteelle annettavat muuttujat.
-     * 
+     *
      * Myöhemmin voidaan lisätä esimerkiksi tyhjyystarkastukset jos on tarvetta.
-     * 
+     *
+     * @return 
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
-    public void parsiKirja() throws FileNotFoundException, IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(tiedostoNimi));
-        Viite v = new Viite();
-        String viitetyyppiJaId = reader.readLine();
-        String delims = "[@{\"]+";
-        String[] tokens = viitetyyppiJaId.split(delims);
-        v.setViitetyyppi(tokens[1]);
-        v.setId(tokens[3]);
-        String author = reader.readLine();
-        tokens = author.split(delims);
-        v.setAuthor(tokens[1]);
-        String publisher = reader.readLine();
-        tokens = publisher.split(delims);
-        v.setPublisher(tokens[1]);
-        String title = reader.readLine();
-        tokens = title.split(delims);
-        v.setTitle(tokens[1]);
-        String year = reader.readLine();
-        tokens = year.split(delims);
-        v.setYear(tokens[1]);
-        
-        /* Nämä testaustarkoituksessa
-        System.out.println(v.getViitetyyppi());
-        System.out.println(v.getId());
-        System.out.println(v.getAuthor());
-        System.out.println(v.getPublisher());
-        System.out.println(v.getTitle());
-        System.out.println(v.getYear());
-        */
+    public boolean parsiKirja(){
+        v = new Viite();
+        try {
+            String viitetyyppiJaId = reader.readLine();
+            String delims = "[@{\"]+";
+            String[] tokens = viitetyyppiJaId.split(delims);
+            v.setViitetyyppi(tokens[1]);
+            v.setId(tokens[3]);
+            String author = reader.readLine();
+            tokens = author.split(delims);
+            v.setAuthor(tokens[1]);
+            String publisher = reader.readLine();
+            tokens = publisher.split(delims);
+            v.setPublisher(tokens[1]);
+            String title = reader.readLine();
+            tokens = title.split(delims);
+            v.setTitle(tokens[1]);
+            String year = reader.readLine();
+            tokens = year.split(delims);
+            v.setYear(tokens[1]);
+            String loppushaiba = reader.readLine(); // Jotta voidaan sit lukea seuraava
+        } catch (Exception e) {
+            System.out.println("Tiedoston luku on päättynyt");
+            return false;
+        }
+
+        /*  System.out.println(v.getViitetyyppi());
+         System.out.println(v.getId()); System.out.println(v.getAuthor());
+         System.out.println(v.getPublisher());
+         System.out.println(v.getTitle()); System.out.println(v.getYear());*/
+        return true;
+
+    }
+
+    public Viite getViite() {
+        return this.v;
     }
 }

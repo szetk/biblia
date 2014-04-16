@@ -30,7 +30,7 @@ public class Tallenna {
         File f = new File(tiedostonNimi);
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f, true)));
-            writer.append(tallennettava);
+            writer.append(tallennettava.replaceAll("ä", "a"));
             writer.flush();
             writer.close();
         } catch (IOException ex) {
