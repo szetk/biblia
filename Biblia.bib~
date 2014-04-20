@@ -160,4 +160,21 @@ publisher = "",
 title = "b��",
 year = ""
 }
-book44authorkaisapublishertitleyear
+@book{ "h00",
+author = "hello",
+publisher = "vgnao",
+title = "moi",
+year = "1200"
+}
+@book{ "ka89",
+author = "kaisa",
+publisher = "ngvak",
+title = "heippa",
+year = "1989"
+}
+@article{ "MI14",
+author = "mie",
+publisher = "baba",
+title = "viitteen id:n toiminta",
+year = "2014"
+}

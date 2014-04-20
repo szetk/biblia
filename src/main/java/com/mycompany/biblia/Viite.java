@@ -68,7 +68,7 @@ public class Viite {
         HashMap<String, ArrayList<String>> kentat = new HashMap<String, ArrayList<String>>();
        
         ArrayList<String> kirjanKentat = new ArrayList<String>();
-        kirjanKentat.add("id");
+        //kirjanKentat.add("id");
         kirjanKentat.add("author");
         kirjanKentat.add("title");
         kirjanKentat.add("year");
@@ -76,7 +76,7 @@ public class Viite {
         kirjanKentat.add("publisher");
        
         ArrayList<String> articlenKentat = new ArrayList<String>();
-        articlenKentat.add("id");
+       // articlenKentat.add("id");
         articlenKentat.add("author");
         articlenKentat.add("title");
         articlenKentat.add("year");
@@ -88,7 +88,7 @@ public class Viite {
         articlenKentat.add("number");
        
         ArrayList<String> inprocKentat = new ArrayList<String>();
-        inprocKentat.add("id");
+        //inprocKentat.add("id");
         inprocKentat.add("author");
         inprocKentat.add("title");
         inprocKentat.add("year");

@@ -63,6 +63,9 @@ public class InteractiveCommandline {
             case 'p':
                 talleta(getRawReference());
                 break;
+            case 's':
+                haeViite();
+                break;
             default:
                 output.println("Toimintoa ei tunnistettu: " + action);
                 break;
@@ -92,8 +95,8 @@ public class InteractiveCommandline {
                 viite.setAuthor(value);
             } else if (field == "booktitle") {
                 viite.setBooktitle(value);
-            } else if (field == "id") {
-                viite.setId(value);
+//            } else if (field == "id") {
+//                viite.setId(value);
             } else if (field == "journal") {
                 viite.setJournal(value);
             } else if (field == "number") {
@@ -116,8 +119,22 @@ public class InteractiveCommandline {
                 viite.setYear(value);
             }
         }
+        String id = generoiId(viite);
+        viite.setId(id);
 
         return viite;
+    }
+    
+    /**
+     * Generoi viitteelle id:n jossa ensin sukunimen 2 ekaa kirjainta ja sitten vuosiluvun 2 viimeistä numeroa.
+     *
+     * @param viite jolle id generoidaan
+     * @return generoitu id
+     */
+    private String generoiId(Viite viite) {
+        String sukunimenEkat = viite.getAuthor().substring(0, 2).toUpperCase();
+        String vuosiluvunVikat = viite.getYear().substring(viite.getYear().length()-2);
+        return sukunimenEkat + vuosiluvunVikat;
     }
 
     private Viite getRawReference() throws IOException {
@@ -144,7 +161,7 @@ public class InteractiveCommandline {
         String result = "";
 
         while (result.length() < 1) {
-            output.println("Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, q Poistu)");
+            output.println("Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, q Poistu)");
             result = getValue("> ");
         }
         return result.charAt(0);
@@ -197,5 +214,40 @@ public class InteractiveCommandline {
         } catch (IOException ex) {
             Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * Kutsuu Lataa-luokan toiminnallisuutta joka näyttää haettavan viitteen tiedot.
+     *
+     * @return haettavan viitteen tiedot
+     */
+    private String haeViite() {
+        String haettavaId = kysyViitteenId();
+        try {
+            Lataa lataa = new Lataa("Biblia.bib");
+            return lataa.tulostaHaetunViitteenTiedot(haettavaId);
+
+        } catch (IOException ex) {
+            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Viitettä ei löytynyt";
+    }
+    
+    /**
+     * Kysyy käyttäjältä haettavan viitteen id:n
+     *
+     * @return käyttäjän antama id
+     */
+    private String kysyViitteenId() {
+        String id = "";
+        while (id.length() < 1) {
+            output.println("Anna haettavan viitteen id:");
+            try {
+                id = getValue("> ");
+            } catch (IOException ex) {
+                Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return id;
     }
 }

@@ -69,6 +69,27 @@ public class Lataa {
         return true;
 
     }
+    
+    /**
+     * Parsii tiedostosta stringiksi haettavan viitteen tiedot
+     *
+     * @return haettavan viitteen tiedot stringinä
+     */
+    public String tulostaHaetunViitteenTiedot(String id) {
+        try {
+            while(!reader.readLine().contains("{ \"" + id)){
+                reader.readLine();
+            }
+            String seuraavarivi = "";
+            while(!seuraavarivi.contains("}")){
+                seuraavarivi = reader.readLine();
+                System.out.println(seuraavarivi);
+            }
+        } catch (Exception e) {
+            System.out.println("Viitettä ei löytynyt");
+        }
+        return "Viitettä ei löytynyt";
+    }
 
     public Viite getViite() {
         return this.v;
