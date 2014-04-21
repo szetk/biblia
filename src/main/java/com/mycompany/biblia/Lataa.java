@@ -43,7 +43,7 @@ public class Lataa {
             String delims = "[@{\"]+";
             String[] tokens = viitetyyppiJaId.split(delims);
             v.setViitetyyppi(tokens[1]);
-            v.setId(tokens[3]);
+            //v.setId(tokens[3]);
             String author = reader.readLine();
             tokens = author.split(delims);
             v.setAuthor(tokens[1]);
@@ -71,24 +71,32 @@ public class Lataa {
     }
     
     /**
-     * Parsii tiedostosta stringiksi haettavan viitteen tiedot
-     *
-     * @return haettavan viitteen tiedot stringinä
+     * Parsii tiedostosta haettavan viitteen Viite-olioksi
+     * 
+     * Käyttää this.v-oliota...
      */
-    public String tulostaHaetunViitteenTiedot(String id) {
+    public void muodostaViite(String id) {
         try {
-            while(!reader.readLine().contains("{ \"" + id)){
-                reader.readLine();
+            String rivi = "";
+            while(true){
+                if (rivi.contains("{ \"" + id)) {
+                    reader.reset();
+                    parsiKirja();
+                    this.v.setId(id);
+                    return;
+                }
+                reader.mark(1000);                
+                rivi = reader.readLine();
             }
-            String seuraavarivi = "";
-            while(!seuraavarivi.contains("}")){
-                seuraavarivi = reader.readLine();
-                System.out.println(seuraavarivi);
-            }
+
+//            String seuraavarivi = "";
+//            while(!seuraavarivi.contains("}")){
+//                seuraavarivi = reader.readLine();
+//                System.out.println(seuraavarivi);
+//            }
         } catch (Exception e) {
             System.out.println("Viitettä ei löytynyt");
         }
-        return "Viitettä ei löytynyt";
     }
 
     public Viite getViite() {

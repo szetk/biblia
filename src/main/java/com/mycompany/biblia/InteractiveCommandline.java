@@ -217,20 +217,23 @@ public class InteractiveCommandline {
     }
     
     /**
-     * Kutsuu Lataa-luokan toiminnallisuutta joka näyttää haettavan viitteen tiedot.
+     * Hakee Lataa-luokalta viitteen id:n perusteella (ja tulostaa sen tiedot)
      *
-     * @return haettavan viitteen tiedot
+     * @return haettava viite
      */
-    private String haeViite() {
+    private Viite haeViite() {
         String haettavaId = kysyViitteenId();
         try {
             Lataa lataa = new Lataa("Biblia.bib");
-            return lataa.tulostaHaetunViitteenTiedot(haettavaId);
+            lataa.muodostaViite(haettavaId);
+            System.out.println(lataa.getViite().toString());
+            return lataa.getViite();
 
         } catch (IOException ex) {
             Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Viitettä ei löytynyt";
+        System.out.println("Viitettä ei löytynyt");
+        return new Viite();
     }
     
     /**
