@@ -77,7 +77,10 @@ public class ViitteidenHallinta {
             }
         }
         System.out.println("Viitettä ei löytynyt");
-        return new Viite();
+        //palautetaan "failed" tyyppinen viite jotta tunnistetaan että haku epäonnistui
+        Viite failed = new Viite();
+        failed.setViitetyyppi("failed");
+        return failed;
     }
 
 }

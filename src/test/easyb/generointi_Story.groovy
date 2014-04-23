@@ -21,7 +21,7 @@ scenario "Syötetään oikeat tiedot", {
         args.add("11")
         args.add("12")
 
-        ict.setInput(args);
+        ict.setInpuut(args);
     }
 
     when 'lisäyksen tiedot on syötetty oikein', {
