@@ -17,6 +17,7 @@ public class InteractiveCommandline {
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
+    private ViitteidenHallinta viitteidenHallinta;
 
     /**
      *
@@ -24,6 +25,7 @@ public class InteractiveCommandline {
     public InteractiveCommandline(PrintStream output, BufferedReader input) {
         this.output = output;
         this.input = input;
+        this.viitteidenHallinta = new ViitteidenHallinta();
     }
 
     /**
@@ -52,16 +54,16 @@ public class InteractiveCommandline {
     private void processAction(char action) throws IOException {
         switch (action) {
             case 'u':
-                talleta(getReference());
+                this.viitteidenHallinta.talleta(getReference());
                 break;
             case 'l':
-                listaa();
+                listaa(this.viitteidenHallinta.getViitteet());
                 break;
             case 'q':
                 endLast();
                 break;
             case 'p':
-                talleta(getRawReference());
+                this.viitteidenHallinta.talleta(getRawReference());
                 break;
             case 's':
                 haeViite();
@@ -124,16 +126,17 @@ public class InteractiveCommandline {
 
         return viite;
     }
-    
+
     /**
-     * Generoi viitteelle id:n jossa ensin sukunimen 2 ekaa kirjainta ja sitten vuosiluvun 2 viimeistä numeroa.
+     * Generoi viitteelle id:n jossa ensin sukunimen 2 ekaa kirjainta ja sitten
+     * vuosiluvun 2 viimeistä numeroa.
      *
      * @param viite jolle id generoidaan
      * @return generoitu id
      */
     private String generoiId(Viite viite) {
         String sukunimenEkat = viite.getAuthor().substring(0, 2).toUpperCase();
-        String vuosiluvunVikat = viite.getYear().substring(viite.getYear().length()-2);
+        String vuosiluvunVikat = viite.getYear().substring(viite.getYear().length() - 2);
         return sukunimenEkat + vuosiluvunVikat;
     }
 
@@ -196,26 +199,18 @@ public class InteractiveCommandline {
         return input.readLine();
     }
 
-    private void talleta(Viite ref) {
-        Tallenna save = new Tallenna(ref.toString());
-        save.tallennaTiedostoon("Biblia.bib");
-        output.println("Viitteen luonti onnistui");
-    }
-
-    private void listaa() {
-        try {
-            Lataa lataa = new Lataa("Biblia.bib");
-            output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
-            while (lataa.parsiKirja()) {
-                Viite viite = lataa.getViite();
-                output.println(viite.getId() + ", " + viite.getViitetyyppi()+ ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+//    private void talleta(Viite ref) {
+//        Tallenna save = new Tallenna(ref.toString());
+//        save.tallennaTiedostoon("Biblia.bib");
+//        output.println("Viitteen luonti onnistui");
+//    }
+    private void listaa(ArrayList<Viite> viitteet) {
+        output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
+        for (Viite viite: viitteet) {
+            output.println(viite.getId() + ", " + viite.getViitetyyppi() + ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
         }
     }
-    
+
     /**
      * Hakee Lataa-luokalta viitteen id:n perusteella (ja tulostaa sen tiedot)
      *
@@ -223,19 +218,9 @@ public class InteractiveCommandline {
      */
     private Viite haeViite() {
         String haettavaId = kysyViitteenId();
-        try {
-            Lataa lataa = new Lataa("Biblia.bib");
-            lataa.muodostaViite(haettavaId);
-            System.out.println(lataa.getViite().toString());
-            return lataa.getViite();
-
-        } catch (IOException ex) {
-            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Viitettä ei löytynyt");
-        return new Viite();
+        return this.viitteidenHallinta.hae(haettavaId);
     }
-    
+
     /**
      * Kysyy käyttäjältä haettavan viitteen id:n
      *
