@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.biblia;
 
 import java.util.ArrayList;
@@ -14,30 +13,9 @@ import java.util.HashMap;
  * @author kazkaupp
  */
 public class Viite {
-    
-    private String viitetyyppi; // book, article tai inproceedings
-    
-    //Nämä kaikilla viitteillä
-    private String id;
-    private String author;
-    private String title;
-    private String year;
-    
-    //Nämä kaikilla viitteillä (vapaaehtoisia)
-    private String address;
-    private String publisher;
-    
-    //Nämä vain article-viitteillä (vapaaehtoisia)
-    private String journal;
-    private int number;
-    private int volume;
-    
-    //Nämä vain inproceedings-viitteillä (vapaaehtoisia)
-    private String booktitle;
-    
-    //Tämä article- ja inproceedings-viitteillä (vapaaehtoinen)
-    private String pages;
-    
+
+    private HashMap<String, String> kentat;
+
     /**
      *
      * @param id
@@ -45,28 +23,36 @@ public class Viite {
      * @param title
      * @param year
      */
-    public Viite(String id, String author, String title, String year){
+    public Viite(String id, String author, String title, String year) {
         //Muut kuin nämä (pakolliset) asetetaan erikseen
-        this.id = id;
-        this.author = author;
-        this.title = title;
-        this.year = year;
+
+//        this.id = id;
+//        this.author = author;
+//        this.title = title;
+//        this.year = year;
+        this.kentat = new HashMap<String, String>();
+        this.kentat.put("id", id);
+        this.kentat.put("author", id);
+        this.kentat.put("title", id);
+        this.kentat.put("year", id);
     }
 
     /**
      *
      */
-    public Viite(){}
-   
+    public Viite() {
+    }
+
     /**
-     * Muodostetaan HashMap jossa jokaiselle viitetyypille ArrayList joka sisältää kyseisen viitetyypin kentät.
-     * Mahdolliset viitetyypit (eli keyt): book, article, inproceedings
+     * Muodostetaan HashMap jossa jokaiselle viitetyypille ArrayList joka
+     * sisältää kyseisen viitetyypin kentät. Mahdolliset viitetyypit (eli keyt):
+     * book, article, inproceedings
      *
      * @return HashMap
      */
     public static HashMap<String, ArrayList<String>> muodostaKenttienHashmap() {
         HashMap<String, ArrayList<String>> kentat = new HashMap<String, ArrayList<String>>();
-       
+
         ArrayList<String> kirjanKentat = new ArrayList<String>();
         //kirjanKentat.add("id");
         kirjanKentat.add("author");
@@ -74,9 +60,9 @@ public class Viite {
         kirjanKentat.add("year");
         kirjanKentat.add("address");
         kirjanKentat.add("publisher");
-       
+
         ArrayList<String> articlenKentat = new ArrayList<String>();
-       // articlenKentat.add("id");
+        // articlenKentat.add("id");
         articlenKentat.add("author");
         articlenKentat.add("title");
         articlenKentat.add("year");
@@ -86,7 +72,7 @@ public class Viite {
         articlenKentat.add("journal");
         articlenKentat.add("volume");
         articlenKentat.add("number");
-       
+
         ArrayList<String> inprocKentat = new ArrayList<String>();
         //inprocKentat.add("id");
         inprocKentat.add("author");
@@ -96,219 +82,33 @@ public class Viite {
         inprocKentat.add("publisher");
         inprocKentat.add("booktitle");
         inprocKentat.add("pages");
-       
+
         kentat.put("book", kirjanKentat);
         kentat.put("article", articlenKentat);
         kentat.put("inproceedings", inprocKentat);
-       
+
         return kentat;
     }
 
-    /**
-     *
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
+    public boolean onPakollisetKentat() {
+        if (this.kentat.get("id") == null) {
+            return false;
+        } else if (this.kentat.get("author") == null) {
+            return false;
+        } else if (this.kentat.get("title") == null) {
+            return false;
+        } else if (this.kentat.get("year") == null) {
+            return false;
+        }
+        return true;
     }
 
-    /**
-     *
-     * @param author
-     */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void set(String avain, String arvo) {
+        this.kentat.put(avain, arvo);
     }
 
-    /**
-     *
-     * @param title
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     *
-     * @param year
-     */
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    /**
-     *
-     * @param address
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    /**
-     *
-     * @param publisher
-     */
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    /**
-     *
-     * @param journal
-     */
-    public void setJournal(String journal) {
-        this.journal = journal;
-    }
-
-    /**
-     *
-     * @param number
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    /**
-     *
-     * @param volume
-     */
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    /**
-     *
-     * @param booktitle
-     */
-    public void setBooktitle(String booktitle) {
-        this.booktitle = booktitle;
-    }
-
-    /**
-     *
-     * @param pages
-     */
-    public void setPages(String pages) {
-        this.pages = pages;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getAuthor() {
-        return author;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getYear() {
-        return year;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getPublisher() {
-        return publisher;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getJournal() {
-        return journal;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getVolume() {
-        return volume;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getBooktitle() {
-        return booktitle;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getPages() {
-        return pages;
-    }
-    
-    /**
-     * Aika suoraviivainen metodi, tällä saadaan siis bibtext muotoon kirjaviite
-     * 
-     * @return
-     */
-        @Override
-    public String toString() {
-        String inOneString = "@" + viitetyyppi + "{ \""+ id + "\",\nauthor = \"" + author + "\",\n" +
-                "publisher = \"" + publisher + "\",\n" +
-                "title = \"" + title + "\",\n" +
-                "year = \"" + year + "\"\n}\n";
-        
-        return inOneString;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public String getViitetyyppi() {
-        return viitetyyppi;
-    }
-
-    /**
-     *
-     * @param viitetyyppi
-     */
-    public void setViitetyyppi(String viitetyyppi) {
-        this.viitetyyppi = viitetyyppi;
+    public String get(String avain) {
+        return this.kentat.get(avain);
     }
 
 }

@@ -63,7 +63,7 @@ public class ViitteidenHallinta {
 
     public void poista(Viite viite) {
         for (int i = 0; i < this.viitteet.size(); i++) {
-            if (this.viitteet.get(i).getId().equals(viite.getId())) {
+            if (this.viitteet.get(i).get("id").equals(viite.get("id"))) {
                 this.viitteet.remove(i);
                 break;
             }
@@ -72,7 +72,7 @@ public class ViitteidenHallinta {
 
     public Viite hae(String haettavaId) {
         for (Viite viite : this.viitteet) {
-            if (viite.getId().equals(haettavaId)) {
+            if (viite.get("id").equals(haettavaId)) {
                 return viite;
             }
         }
