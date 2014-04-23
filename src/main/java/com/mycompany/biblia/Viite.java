@@ -7,6 +7,7 @@ package com.mycompany.biblia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Viite {
      *
      */
     public Viite() {
+        this.kentat = new HashMap<String, String>();
     }
 
     /**
@@ -109,6 +111,26 @@ public class Viite {
 
     public String get(String avain) {
         return this.kentat.get(avain);
+    }
+
+    @Override
+    public String toString() {
+        String inOneString = "@" + get("viitetyyppi") + "{ \"" + get("id") + "\",\n";
+        int i = 0;
+        for (Entry<String, String> e : this.kentat.entrySet()) {
+            if (!e.getKey().equals("viitetyyppi") && !e.getKey().equals("id")) {
+                if (i == this.kentat.size() - 1) {
+                    inOneString += e.getKey() + " = \"" + e.getValue() + "\"\n}\n";
+                } else {
+                    inOneString += e.getKey() + " = \"" + e.getValue() + "\",\n";
+
+                }
+            }
+
+            i++;
+        }
+        return inOneString;
+
     }
 
 }
