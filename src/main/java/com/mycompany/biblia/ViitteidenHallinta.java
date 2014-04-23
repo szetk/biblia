@@ -25,13 +25,8 @@ public class ViitteidenHallinta {
 
     private ArrayList<Viite> viitteet;
 
-    public ViitteidenHallinta(){
-        try {
-            this.viitteet = new ArrayList<Viite>();
-            lataaViitteetTiedostosta("Biblia.bib");
-        } catch (IOException ex) {
-            Logger.getLogger(ViitteidenHallinta.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public ViitteidenHallinta() {
+        this.viitteet = new ArrayList<Viite>();
     }
 
     public ArrayList<Viite> getViitteet() {
@@ -62,24 +57,19 @@ public class ViitteidenHallinta {
     }
 
     public void korvaa(Viite viite) {
+        poista(viite);
+        this.viitteet.add(viite);
+    }
+
+    public void poista(Viite viite) {
         for (int i = 0; i < this.viitteet.size(); i++) {
             if (this.viitteet.get(i).getId().equals(viite.getId())) {
                 this.viitteet.remove(i);
-                this.viitteet.add(viite);
                 break;
             }
         }
     }
 
-    public void poista(Viite viite) {
-        for (int i = 0; i < this.viitteet.size(); i++) {
-            if (this.viitteet.get(i) == viite) {
-                this.viitteet.remove(i);
-                break;
-            }
-        }
-    }
-    
     public Viite hae(String haettavaId) {
         for (Viite viite : this.viitteet) {
             if (viite.getId().equals(haettavaId)) {
@@ -89,7 +79,5 @@ public class ViitteidenHallinta {
         System.out.println("Viitettä ei löytynyt");
         return new Viite();
     }
-
-    
 
 }

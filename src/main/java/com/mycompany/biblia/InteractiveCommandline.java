@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-    private static String helpText =
-        "Anna toiminto (u Uusi viite, l Listaa viitteet, c Liitä viite, s Hae viite, m Muokkaa viitettä, p Poista viite, q Poistu)";
+    private static String helpText
+            = "Anna toiminto (u Uusi viite, l Listaa viitteet, c Liitä viite, s Hae viite, m Muokkaa viitettä, p Poista viite, q Poistu)";
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -28,6 +28,12 @@ public class InteractiveCommandline {
         this.output = output;
         this.input = input;
         this.viitteidenHallinta = new ViitteidenHallinta();
+        try {
+            this.viitteidenHallinta.lataaViitteetTiedostosta("Biblia.bib");
+        } catch (IOException ex) {
+            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -217,7 +223,7 @@ public class InteractiveCommandline {
 //    }
     private void listaa(ArrayList<Viite> viitteet) {
         output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
-        for (Viite viite: viitteet) {
+        for (Viite viite : viitteet) {
             output.println(viite.getId() + ", " + viite.getViitetyyppi() + ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
         }
     }

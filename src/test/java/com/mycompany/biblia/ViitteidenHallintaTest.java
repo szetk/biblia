@@ -79,6 +79,40 @@ public class ViitteidenHallintaTest extends TestCase {
         assertEquals(viite.getYear(), "2014");
 
     }
-    // TODO add test methods here. The name must begin with 'test'. For example:
-    // public void testHello() {}
+
+    public ViitteidenHallinta generoiViitteidenHallinta() {
+        ViitteidenHallinta v = new ViitteidenHallinta();
+        Viite viite = new Viite("aa", "Pekka", "Kala", "1923");
+        v.getViitteet().add(viite);
+        return v;
+    }
+
+    public void testTalleta() {
+        ViitteidenHallinta v = new ViitteidenHallinta();
+        Viite viite = new Viite("aa", "Pekka", "Kala", "1923");
+        v.talleta(viite);
+        assertEquals(v.getViitteet().get(0), viite);
+    }
+
+    public void testMuokkaa() {
+        ViitteidenHallinta v = generoiViitteidenHallinta();
+        Viite viite = new Viite("aa", "Koski", "Kossu", "1923");
+        v.korvaa(viite);
+        assertEquals(v.getViitteet().get(0), viite);
+    }
+
+    public void testPoista() {
+        ViitteidenHallinta v = generoiViitteidenHallinta();
+        Viite viite = new Viite("aa", "Katri Helena", "Kala", "1923");
+        v.poista(viite);
+        assertEquals(v.getViitteet().size(), 0);
+    }
+
+    public void testHae() {
+        ViitteidenHallinta v = new ViitteidenHallinta();
+        Viite viite = new Viite("aa", "Pekka", "Kala", "1923");
+        v.getViitteet().add(viite);
+        Viite viite2 = v.hae("aa");
+        assertEquals(viite, viite2);
+    }
 }
