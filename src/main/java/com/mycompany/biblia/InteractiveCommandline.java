@@ -15,7 +15,7 @@ public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
     private static String helpText =
-        "Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, m Muokkaa viitettä, q Poistu)";
+        "Anna toiminto (u Uusi viite, l Listaa viitteet, c Liitä viite, s Hae viite, m Muokkaa viitettä, p Poista viite, q Poistu)";
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -64,7 +64,7 @@ public class InteractiveCommandline {
             case 'q':
                 endLast();
                 break;
-            case 'p':
+            case 'c':
                 this.viitteidenHallinta.talleta(getRawReference());
                 break;
             case 'm':
@@ -72,6 +72,9 @@ public class InteractiveCommandline {
                 Viite vnew = getReference();
                 vnew.setId(id);
                 this.viitteidenHallinta.korvaa(vnew);
+                break;
+            case 'p':
+                this.viitteidenHallinta.poista(haeViite());
                 break;
             case 's':
                 haeViite();
@@ -237,7 +240,7 @@ public class InteractiveCommandline {
     private String kysyViitteenId() {
         String id = "";
         while (id.length() < 1) {
-            output.println("Anna haettavan viitteen id:");
+            output.println("Anna viitteen id:");
             try {
                 id = getValue("> ");
             } catch (IOException ex) {
