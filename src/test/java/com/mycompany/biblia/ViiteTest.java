@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.mycompany.biblia;
 
 import java.util.ArrayList;
@@ -11,16 +10,16 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 public class ViiteTest extends TestCase {
-    
+
     public ViiteTest(String testName) {
         super(testName);
     }
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
-    
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -40,24 +39,109 @@ public class ViiteTest extends TestCase {
         assertEquals(author, instance.get("author"));
         assertEquals(title, instance.get("title"));
         assertEquals(year, instance.get("year"));
-        
-    } 
+
+    }
+
+    public void assertContains(String merkkijono, String sisaltaa) {
+        if (merkkijono.contains(sisaltaa)) {
+            assertTrue(true);
+        } else {
+            assertTrue(false);
+        }
+    }
     
-    public void testToString(){
+    public void testTyhjaKentta(){
+        Viite viite = new Viite("1", "tekija", "otsikko", "1999");
+        viite.set("viitetyyppi", "Book");
+        viite.set("publisher", "");
+        
+        assertContains(viite.toString(), "@Book{ \"1\",\n");
+        assertContains(viite.toString(), "author = \"tekija\",\n");
+        assertContains(viite.toString(), "title = \"otsikko\",\n");
+        assertContains(viite.toString(), "publisher = \"\",\n");
+        assertContains(viite.toString(), "year = \"1999\"\n}\n");
+        
+    }
+    
+    public void testTyhjaKentta2(){
+        Viite viite = new Viite("1", "tekija", "", "1999");
+        viite.set("viitetyyppi", "Book");
+        assertContains(viite.toString(), "title = \"\",\n");
+    }
+    
+    public void testPuuttuvaKentta(){
+        Viite viite = new Viite();
+        assertEquals("Viitteellä ei ole kaikkia pakollisia kenttiä", viite.toString());
+    }
+    
+    public void testPuuttuvaKentta2(){
+        Viite viite = new Viite();
+        viite.set("id", "2");
+        viite.set("author", "tekija");
+        assertEquals("Viitteellä ei ole kaikkia pakollisia kenttiä", viite.toString());
+    }
+    public void testPuuttuvaKentta3(){
+        Viite viite = new Viite("1", "tekija", "otsikko", "1999");
+        // huom! ei ole annettu viitetyyppiä
+        assertEquals("Viitteellä ei ole kaikkia pakollisia kenttiä", viite.toString());
+    }
+    
+
+    public void testToString() {
         Viite viite = new Viite();
         viite.set("viitetyyppi", "Book");
         viite.set("id", "1");
         viite.set("author", "tekija");
+        viite.set("publisher", "julkaisija");
         viite.set("title", "otsikko");
-        viite.set("julkaisija", "julkaisija");
         viite.set("year", "1999");
+
+        assertContains(viite.toString(), "@Book{ \"1\",\n");
+        assertContains(viite.toString(), "author = \"tekija\",\n");
+        assertContains(viite.toString(), "title = \"otsikko\",\n");
+        assertContains(viite.toString(), "publisher = \"julkaisija\",\n");
+        assertContains(viite.toString(), "year = \"1999\"\n}\n");
+
+        assertEquals("@Book{ \"1\",\n"
+                + "author = \"tekija\",\n"
+                + "title = \"otsikko\",\n"
+                + "publisher = \"julkaisija\",\n"
+                + "year = \"1999\"\n"
+                + "}\n", viite.toString());
+
+    }
+
+    public void testSet() {
+        Viite v = new Viite();
+        v.set("journal", "jallu");
+        assertEquals(v.getKentat().get("journal"), "jallu");
+    }
+
+    public void testGet() {
+        Viite v = new Viite();
+        v.getKentat().put("journal", "jallu");
+        assertEquals(v.get("journal"), "jallu");
+    }
+
+    public void testOnPakollisetKentat() {
+        Viite v = new Viite();
         
-        assertEquals("@Book{ \"1\",\n" +
-            "author = \"tekija\",\n" +
-            "publisher = \"julkaisija\",\n" +
-            "title = \"otsikko\",\n" +
-            "year = \"1999\"\n" +
-            "}\n", viite.toString());
+        assertTrue(!v.onPakollisetKentat());
+        v.getKentat().put("id", "2");
+        assertTrue(!v.onPakollisetKentat());
+        
+        v.getKentat().put("author", "kalle");
+        assertTrue(!v.onPakollisetKentat());
+
+        v.getKentat().put("title", "n leikkikalut");
+        assertTrue(!v.onPakollisetKentat());
+
+        v.getKentat().put("year", "1969");
+        assertTrue(!v.onPakollisetKentat());
+        
+        v.getKentat().put("viitetyyppi", "article");
+        assertTrue(v.onPakollisetKentat());
+
     }
 
     /**
