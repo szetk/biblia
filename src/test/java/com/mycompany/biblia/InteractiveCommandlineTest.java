@@ -54,7 +54,7 @@ public class InteractiveCommandlineTest extends TestCase {
             .thenReturn("12");
         cmdline.run();
 
-        assertThat(baos.toString(), containsString("Valitse referenssin tyyppi"));
+        assertThat(baos.toString(), containsString(""));
     }
 
     public void testViitteidenListaus() throws IOException {

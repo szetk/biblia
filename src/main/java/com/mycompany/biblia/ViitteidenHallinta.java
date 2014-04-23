@@ -35,7 +35,7 @@ public class ViitteidenHallinta {
 
     public void lataaViitteetTiedostosta(String tiedostonNimi) throws IOException {
         Lataa lataa = new Lataa(tiedostonNimi);
-        while (lataa.parsiKirja()) {
+        while (lataa.parsiViite()) {
             Viite viite = lataa.getViite();
             viitteet.add(viite);
         }
@@ -77,7 +77,9 @@ public class ViitteidenHallinta {
             }
         }
         System.out.println("Viitettä ei löytynyt");
-        return new Viite();
+        Viite failed = new Viite();
+        failed.setViitetyyppi("failed");
+        return failed;
     }
 
 }

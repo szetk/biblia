@@ -32,60 +32,74 @@ public class Lataa {
      *
      * Myöhemmin voidaan lisätä esimerkiksi tyhjyystarkastukset jos on tarvetta.
      *
-     * @return 
+     * @return
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public boolean parsiKirja(){
+    public boolean parsiViite() {
         v = new Viite();
+        String nextLine = "";
+        String[] tokens;
+        String delims = "[@{\"]+";
         try {
-            String viitetyyppiJaId = reader.readLine();
-            String delims = "[@{\"]+";
-            String[] tokens = viitetyyppiJaId.split(delims);
-            v.setViitetyyppi(tokens[1]);
-            v.setId(tokens[3]);
-            String author = reader.readLine();
-            tokens = author.split(delims);
-            v.setAuthor(tokens[1]);
-            String publisher = reader.readLine();
-            tokens = publisher.split(delims);
-            v.setPublisher(tokens[1]);
-            String title = reader.readLine();
-            tokens = title.split(delims);
-            v.setTitle(tokens[1]);
-            String year = reader.readLine();
-            tokens = year.split(delims);
-            v.setYear(tokens[1]);
-            String loppushaiba = reader.readLine(); // Jotta voidaan sit lukea seuraava
+                reader.readLine();
+                nextLine=reader.readLine();
+            while (!nextLine.contains("}")) {
+                
+                tokens = nextLine.split(delims);
+                System.out.println(tokens[0].substring(0, tokens[0].length()-2));
+                System.out.println(tokens[1]);
+                nextLine = reader.readLine();
+            }
+            /*
+             * String viitetyyppiJaId = reader.readLine();
+             *
+             * String[] tokens = viitetyyppiJaId.split(delims);
+             *
+             * v.setViitetyyppi(tokens[1]); v.setId(tokens[3]); String author =
+             * reader.readLine(); tokens = author.split(delims);
+             * v.setAuthor(tokens[1]); String publisher = reader.readLine();
+             * tokens = publisher.split(delims); System.out.println(tokens[0]);
+             * v.setPublisher(tokens[1]); String title = reader.readLine();
+             * tokens = title.split(delims); v.setTitle(tokens[1]); String year
+             * = reader.readLine(); tokens = year.split(delims);
+             * v.setYear(tokens[1]); String loppushaiba = reader.readLine(); //
+             * Jotta voidaan sit lukea seuraava
+             */
+
+
         } catch (Exception e) {
-            System.out.println("Tiedoston luku on päättynyt");
+            System.out.println(e);
             return false;
         }
 
-        /*  System.out.println(v.getViitetyyppi());
-         System.out.println(v.getId()); System.out.println(v.getAuthor());
-         System.out.println(v.getPublisher());
-         System.out.println(v.getTitle()); System.out.println(v.getYear());*/
+        /*
+         * System.out.println(v.getViitetyyppi());
+         * System.out.println(v.getId()); System.out.println(v.getAuthor());
+         * System.out.println(v.getPublisher());
+         * System.out.println(v.getTitle()); System.out.println(v.getYear());
+         */
         return true;
 
     }
-    
+
     /**
      * Parsii tiedostosta haettavan viitteen Viite-olioksi
-     * 
+     *
      * Käyttää this.v-oliota...
      */
     public void muodostaViite(String id) {
-        try {
+
+       try {
             String rivi = "";
-            while(true){
+            while (true) {
                 if (rivi.contains("{ \"" + id)) {
                     reader.reset();
-                    parsiKirja();
+                    parsiViite();
                     this.v.setId(id);
                     return;
                 }
-                reader.mark(1000);                
+                reader.mark(1000);
                 rivi = reader.readLine();
             }
 

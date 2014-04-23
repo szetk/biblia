@@ -83,7 +83,11 @@ public class InteractiveCommandline {
                 this.viitteidenHallinta.poista(haeViite());
                 break;
             case 's':
-                haeViite();
+                Viite haettu=haeViite();
+                if(!haettu.getViitetyyppi().equals("failed")){
+                    System.out.println(haettu);
+                }
+            
                 break;
             default:
                 output.println("Toimintoa ei tunnistettu: " + action);
@@ -140,7 +144,7 @@ public class InteractiveCommandline {
         }
         String id = generoiId(viite);
         viite.setId(id);
-
+        System.out.println(viite);
         return viite;
     }
 
