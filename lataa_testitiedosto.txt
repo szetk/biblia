@@ -1,6 +1,6 @@
 @Book{ "aa", 
 author = "ville",
-publisher  = "", 
+publisher  = "null", 
 title  = "testi", 
 year   = "2014"
  }

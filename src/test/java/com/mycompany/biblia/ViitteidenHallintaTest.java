@@ -44,6 +44,7 @@ public class ViitteidenHallintaTest extends TestCase {
         ViitteidenHallinta v = new ViitteidenHallinta();
         Viite viite = new Viite("aa", "Pekka", "Kala", "1923");
         Viite viite2 = new Viite("bb", "B-pekka", "Kala", "2013");
+        viite.setViitetyyppi("Book");
         v.getViitteet().add(viite);
         v.getViitteet().add(viite2);
         try {
@@ -57,7 +58,13 @@ public class ViitteidenHallintaTest extends TestCase {
 
             Scanner lukija = new Scanner(new File(tiedostonNimi));
             if (lukija.hasNextLine()) {
-                assertEquals(lukija.nextLine(), "@null{ \"aa\",");
+                assertEquals(lukija.nextLine(), "@Book{ \"aa\",");
+                assertEquals(lukija.nextLine(), "author = \"Pekka\",");
+                assertEquals(lukija.nextLine(), "publisher = \"null\",");
+                assertEquals(lukija.nextLine(), "title = \"Kala\",");
+                assertEquals(lukija.nextLine(), "year = \"1923\"");
+                assertEquals(lukija.nextLine(), "}");
+                assertEquals(lukija.nextLine(), "@null{ \"bb\",");
             } else {
                 fail("Tiedostoon tallennus ei onnistunut");
             }
@@ -74,9 +81,11 @@ public class ViitteidenHallintaTest extends TestCase {
         v.lataaViitteetTiedostosta("lataa_testitiedosto.txt");
 
         Viite viite = v.getViitteet().get(0);
+        assertEquals(viite.getViitetyyppi(), "Book");
         assertEquals(viite.getAuthor(), "ville");
         assertEquals(viite.getTitle(), "testi");
         assertEquals(viite.getYear(), "2014");
+        assertEquals(viite.getPublisher(), "null");
 
     }
 
