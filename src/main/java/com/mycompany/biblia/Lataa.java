@@ -41,14 +41,22 @@ public class Lataa {
         String nextLine = "";
         String[] tokens;
         String delims = "[@{\"]+";
-        try {
-                reader.readLine();
+        try {   
+                //eka rivi
                 nextLine=reader.readLine();
-            while (!nextLine.contains("}")) {
-                
                 tokens = nextLine.split(delims);
-                System.out.println(tokens[0].substring(0, tokens[0].length()-2));
+                for(int i=0; i<tokens.length;i++){
+                    System.out.println("["+tokens[i]+"]");
+                }
+                nextLine=reader.readLine();
+            while (!nextLine.contains("}")) {            
+                tokens = nextLine.split(delims);
+                String avain=tokens[0].replaceAll("\\s+","");
+                avain=avain.substring(0, avain.length()-1);
+                
+                System.out.println(avain);
                 System.out.println(tokens[1]);
+              //  v.set(avain, tokens[1]);
                 nextLine = reader.readLine();
             }
             /*
@@ -88,7 +96,7 @@ public class Lataa {
      *
      * Käyttää this.v-oliota...
      */
-    public void muodostaViite(String id) {
+  /*  public void muodostaViite(String id) {
 
        try {
             String rivi = "";
@@ -111,7 +119,7 @@ public class Lataa {
         } catch (Exception e) {
             System.out.println("Viitettä ei löytynyt");
         }
-    }
+    }*/
 
     public Viite getViite() {
         return this.v;

@@ -78,7 +78,7 @@ public class ViitteidenHallinta {
         }
         System.out.println("Viitettä ei löytynyt");
         Viite failed = new Viite();
-        failed.setViitetyyppi("failed");
+       // failed.setViitetyyppi("failed");
         return failed;
     }
 

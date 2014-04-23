@@ -39,7 +39,7 @@ public class InteractiveCommandline {
     /**
      * Main loop.
      */
-    public void run() {
+   /* public void run() {
 
         output.print(welcomeMsg);
 
@@ -59,7 +59,7 @@ public class InteractiveCommandline {
     /**
      * Process an action possibly asking for further input.
      */
-    private void processAction(char action) throws IOException {
+   /* private void processAction(char action) throws IOException {
         switch (action) {
             case 'u':
                 this.viitteidenHallinta.talleta(getReference());
@@ -84,9 +84,9 @@ public class InteractiveCommandline {
                 break;
             case 's':
                 Viite haettu=haeViite();
-                if(!haettu.getViitetyyppi().equals("failed")){
-                    System.out.println(haettu);
-                }
+                //if(!haettu.getViitetyyppi().equals("failed")){
+              //      System.out.println(haettu);
+              //  }
             
                 break;
             default:
@@ -98,7 +98,7 @@ public class InteractiveCommandline {
     /**
      * Get reference fields interactively.
      */
-    private Viite getReference() throws IOException {
+   /* private Viite getReference() throws IOException {
         HashMap<String, ArrayList<String>> dict = Viite.muodostaKenttienHashmap();
         Set<String> refTypes = dict.keySet();
 
@@ -155,7 +155,7 @@ public class InteractiveCommandline {
      * @param viite jolle id generoidaan
      * @return generoitu id
      */
-    private String generoiId(Viite viite) {
+  /*  private String generoiId(Viite viite) {
         String sukunimenEkat = viite.getAuthor().substring(0, 2).toUpperCase();
         String vuosiluvunVikat = viite.getYear().substring(viite.getYear().length() - 2);
         return sukunimenEkat + vuosiluvunVikat;
@@ -225,7 +225,7 @@ public class InteractiveCommandline {
 //        save.tallennaTiedostoon("Biblia.bib");
 //        output.println("Viitteen luonti onnistui");
 //    }
-    private void listaa(ArrayList<Viite> viitteet) {
+    /*private void listaa(ArrayList<Viite> viitteet) {
         output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
         for (Viite viite : viitteet) {
             output.println(viite.getId() + ", " + viite.getViitetyyppi() + ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
