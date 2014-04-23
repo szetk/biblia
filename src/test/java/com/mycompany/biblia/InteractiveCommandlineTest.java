@@ -74,7 +74,7 @@ public class InteractiveCommandlineTest extends TestCase {
     public void testPasteNonsense() throws IOException {
         cmdline.endLast();
         when(input.readLine())
-            .thenReturn("p")
+            .thenReturn("c")
             .thenReturn("nonsense")
             .thenReturn(""); // end
         cmdline.run();
@@ -116,6 +116,16 @@ public class InteractiveCommandlineTest extends TestCase {
         cmdline.run();
 
         assertThat(baos.toString(), containsString("Book"));
+    }
+
+    public void testPoista() throws IOException {
+        cmdline.endLast();
+        when(input.readLine())
+            .thenReturn("p")
+            .thenReturn("non-existing");
+
+        cmdline.run();
+        // fixme what could be asserted here?
     }
 
 }
