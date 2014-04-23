@@ -7,6 +7,7 @@ package com.mycompany.biblia;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  *
@@ -24,23 +25,18 @@ public class Viite {
      * @param year
      */
     public Viite(String id, String author, String title, String year) {
-        //Muut kuin nämä (pakolliset) asetetaan erikseen
-
-//        this.id = id;
-//        this.author = author;
-//        this.title = title;
-//        this.year = year;
         this.kentat = new HashMap<String, String>();
         this.kentat.put("id", id);
-        this.kentat.put("author", id);
-        this.kentat.put("title", id);
-        this.kentat.put("year", id);
+        this.kentat.put("author", author);
+        this.kentat.put("title", title);
+        this.kentat.put("year", year);
     }
 
     /**
      *
      */
     public Viite() {
+        this.kentat = new HashMap<String, String>();
     }
 
     /**
@@ -99,6 +95,8 @@ public class Viite {
             return false;
         } else if (this.kentat.get("year") == null) {
             return false;
+        } else if (this.kentat.get("viitetyyppi") == null) {
+            return false;
         }
         return true;
     }
@@ -110,5 +108,33 @@ public class Viite {
     public String get(String avain) {
         return this.kentat.get(avain);
     }
+
+    @Override
+    public String toString() {
+        if(!onPakollisetKentat()){
+            return "Viitteellä ei ole kaikkia pakollisia kenttiä";
+        }
+        String inOneString = "@" + get("viitetyyppi") + "{ \"" + get("id") + "\",\n";
+        for (Entry<String, String> e : this.kentat.entrySet()) {
+            if (!e.getKey().equals("viitetyyppi") && !e.getKey().equals("id") && !e.getKey().equals("year")) {
+                inOneString += e.getKey() + " = \"" + e.getValue() + "\",\n";
+            }
+        }
+        // laitetaan aina loppuun vuosi, niin on vähän helpomi testailla, ja muutenkin homma menee nätimmin
+        inOneString += "year = \"" + get("year") + "\"\n}\n";
+
+        return inOneString;
+
+    }
+
+    public HashMap<String, String> getKentat() {
+        return kentat;
+    }
+
+    public void setKentat(HashMap<String, String> kentat) {
+        this.kentat = kentat;
+    }
+    
+    
 
 }
