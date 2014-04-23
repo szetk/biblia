@@ -11,7 +11,6 @@ scenario "Syötetään oikeat tiedot", {
         args = new ArrayList<String>()
         args.add("u")
         args.add("0")
-        args.add("id")
         args.add("author")
         args.add("title")
         args.add("1999")

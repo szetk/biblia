@@ -341,9 +341,7 @@ public class ViiteTest extends TestCase {
      */
     public void testMuodostaKenttienHashmap() {
         System.out.println("muodostaKenttienHashmap");
-        Viite instance = new Viite();
-        HashMap<String, ArrayList<String>> result = instance.muodostaKenttienHashmap();
-        assertEquals(result.get("book").contains("id"), true);
+        HashMap<String, ArrayList<String>> result = Viite.muodostaKenttienHashmap();
         assertEquals(result.get("article").contains("pages"), true);
     }
 
