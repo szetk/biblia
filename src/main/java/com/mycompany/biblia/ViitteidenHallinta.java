@@ -61,6 +61,16 @@ public class ViitteidenHallinta {
         this.viitteet.add(viite);
     }
 
+    public void korvaa(Viite viite) {
+        for (int i = 0; i < this.viitteet.size(); i++) {
+            if (this.viitteet.get(i).getId().equals(viite.getId())) {
+                this.viitteet.remove(i);
+                this.viitteet.add(viite);
+                break;
+            }
+        }
+    }
+
     public Viite hae(String haettavaId) {
         for (Viite viite : this.viitteet) {
             if (viite.getId().equals(haettavaId)) {

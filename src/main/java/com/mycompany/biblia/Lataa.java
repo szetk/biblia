@@ -43,7 +43,7 @@ public class Lataa {
             String delims = "[@{\"]+";
             String[] tokens = viitetyyppiJaId.split(delims);
             v.setViitetyyppi(tokens[1]);
-            //v.setId(tokens[3]);
+            v.setId(tokens[3]);
             String author = reader.readLine();
             tokens = author.split(delims);
             v.setAuthor(tokens[1]);

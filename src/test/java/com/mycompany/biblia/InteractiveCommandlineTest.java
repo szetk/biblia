@@ -72,14 +72,12 @@ public class InteractiveCommandlineTest extends TestCase {
     }
 
     public void testPasteNonsense() throws IOException {
-        // cmdline.endLast();
-        // when(input.readLine())
-        //     .thenReturn("p")
-        //     .thenReturn("nonsense")
-        //     .thenReturn(""); // end
-        // cmdline.run();
-
-        // assertThat(baos.toString(), containsString("nonsense input"));
+        cmdline.endLast();
+        when(input.readLine())
+            .thenReturn("p")
+            .thenReturn("nonsense")
+            .thenReturn(""); // end
+        cmdline.run();
     }
 
     public void testNonsense() throws IOException {
@@ -90,4 +88,34 @@ public class InteractiveCommandlineTest extends TestCase {
 
         assertThat(baos.toString(), containsString("Toimintoa ei tunnistettu"));
     }
+
+    public void testMuokkaus() throws IOException {
+        cmdline.endLast();
+        when(input.readLine())
+            .thenReturn("m")
+            .thenReturn("aa1")
+            .thenReturn("0")
+            .thenReturn("author")
+            .thenReturn("title")
+            .thenReturn("2000")
+            .thenReturn("address")
+            .thenReturn("publisher")
+            .thenReturn("pages")
+            .thenReturn("journal")
+            .thenReturn("11")
+            .thenReturn("12");
+        cmdline.run();
+    }
+
+    public void testHae() throws IOException {
+        cmdline.endLast();
+        when(input.readLine())
+            .thenReturn("s")
+            .thenReturn("aa1");
+
+        cmdline.run();
+
+        assertThat(baos.toString(), containsString("Book"));
+    }
+
 }

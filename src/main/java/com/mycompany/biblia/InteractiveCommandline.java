@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
+    private static String helpText =
+        "Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, m Muokkaa viitettä, q Poistu)";
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -65,6 +67,12 @@ public class InteractiveCommandline {
             case 'p':
                 this.viitteidenHallinta.talleta(getRawReference());
                 break;
+            case 'm':
+                String id = haeViite().getId();
+                Viite vnew = getReference();
+                vnew.setId(id);
+                this.viitteidenHallinta.korvaa(vnew);
+                break;
             case 's':
                 haeViite();
                 break;
@@ -78,7 +86,7 @@ public class InteractiveCommandline {
      * Get reference fields interactively.
      */
     private Viite getReference() throws IOException {
-        HashMap<String, ArrayList<String>> dict = (new Viite()).muodostaKenttienHashmap();
+        HashMap<String, ArrayList<String>> dict = Viite.muodostaKenttienHashmap();
         Set<String> refTypes = dict.keySet();
 
         String refType = getOption("referenssin tyyppi", refTypes);
@@ -164,7 +172,7 @@ public class InteractiveCommandline {
         String result = "";
 
         while (result.length() < 1) {
-            output.println("Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, q Poistu)");
+            output.println(helpText);
             result = getValue("> ");
         }
         return result.charAt(0);
