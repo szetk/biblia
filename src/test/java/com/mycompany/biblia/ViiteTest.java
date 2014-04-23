@@ -41,31 +41,7 @@ public class ViiteTest extends TestCase {
         assertEquals(title, instance.get("title"));
         assertEquals(year, instance.get("year"));
         
-    }
-
-    /**
-     * Test of setId method, of class Viite.
-     */
-    public void testSetId() {
-        System.out.println("setId");
-        String id = "123";
-        Viite instance = new Viite();
-        instance.set("id", id);
-        assertEquals(id, instance.get("id"));
-    }
-
-    /**
-     * Test of getId method, of class Viite.
-     */
-    public void testGetId() {
-        System.out.println("getId");
-        Viite instance = new Viite();
-        String expResult = "123";
-        instance.set("id", expResult);
-        String result = instance.get("id");
-        assertEquals(expResult, result);
-    }
- 
+    } 
     
     public void testToString(){
         Viite viite = new Viite();
