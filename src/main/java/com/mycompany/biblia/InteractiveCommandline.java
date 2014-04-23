@@ -2,6 +2,7 @@ package com.mycompany.biblia;
 
 import com.mycompany.biblia.Viite;
 import com.mycompany.biblia.Tallenna;
+import com.mycompany.biblia.ViitteidenHallinta;
 import java.io.*;
 import java.io.PrintStream;
 import java.util.*;
@@ -14,8 +15,15 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
+    private static String helpText =
+        "Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, q Poistu)";
+
     private PrintStream output;
     private BufferedReader input;
+
+    private String filename = "Biblia.bib";
+    private ViitteidenHallinta hallinta = new ViitteidenHallinta();
+
     private boolean doend = false;
 
     /**
@@ -34,6 +42,7 @@ public class InteractiveCommandline {
         output.print(welcomeMsg);
 
         try {
+            this.hallinta.lataaViitteetTiedostosta(filename);
             do {
                 processAction(getAction());
             } while (!doend);
@@ -57,6 +66,9 @@ public class InteractiveCommandline {
             case 'l':
                 listaa();
                 break;
+            case 'm':
+                muokkaa(getReferenceById());
+                break;
             case 'q':
                 endLast();
                 break;
@@ -76,7 +88,7 @@ public class InteractiveCommandline {
      * Get reference fields interactively.
      */
     private Viite getReference() throws IOException {
-        HashMap<String, ArrayList<String>> dict = (new Viite()).muodostaKenttienHashmap();
+        HashMap<String, ArrayList<String>> dict = Viite.muodostaKenttienHashmap();
         Set<String> refTypes = dict.keySet();
 
         String refType = getOption("referenssin tyyppi", refTypes);
@@ -124,6 +136,13 @@ public class InteractiveCommandline {
 
         return viite;
     }
+
+    private Viite getReferenceById() throws IOException {
+       String id = getValue("Muokattavan ID: ");
+       Viite viite = getReference();
+       viite.setId(id);
+       return viite;
+    }
     
     /**
      * Generoi viitteelle id:n jossa ensin sukunimen 2 ekaa kirjainta ja sitten vuosiluvun 2 viimeistä numeroa.
@@ -161,7 +180,7 @@ public class InteractiveCommandline {
         String result = "";
 
         while (result.length() < 1) {
-            output.println("Anna toiminto (u Uusi viite, l Listaa viitteet, p Liitä viite, s Hae viite, q Poistu)");
+            output.println(helpText);
             result = getValue("> ");
         }
         return result.charAt(0);
@@ -202,17 +221,16 @@ public class InteractiveCommandline {
         output.println("Viitteen luonti onnistui");
     }
 
-    private void listaa() {
-        try {
-            Lataa lataa = new Lataa("Biblia.bib");
-            output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
-            while (lataa.parsiKirja()) {
-                Viite viite = lataa.getViite();
-                output.println(viite.getId() + ", " + viite.getViitetyyppi()+ ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
-            }
+    private void muokkaa(Viite ref) {
 
-        } catch (IOException ex) {
-            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    private void listaa() {
+        output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
+        for (Viite viite : hallinta.getViitteet()) {
+            output.println(viite.getId() + ", " + viite.getViitetyyppi()+ ", " +
+                    viite.getAuthor() + ", " + viite.getTitle() + ", " +
+                    viite.getYear());
         }
     }
     
