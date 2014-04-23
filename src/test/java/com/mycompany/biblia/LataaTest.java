@@ -37,15 +37,15 @@ public class LataaTest extends TestCase {
 
     public void testLataaTiedostosta() throws IOException {
        lataaja = new Lataa("lataa_testitiedosto.txt");
-        lataaja.parsiKirja();
+        lataaja.parsiViite();
         Viite v = lataaja.getViite();
-        assertEquals(v.getAuthor(),"ville");
-        assertEquals(v.getTitle(),"testi");
-        assertEquals(v.getYear(),"2014");
+        assertEquals(v.get("author"),"ville");
+        assertEquals(v.get("title"),"testi");
+        assertEquals(v.get("year"),"2014");
     }
      public void testEpaonnistunutLataus() throws Exception{
         lataaja = new Lataa("lataa_vaara_tiedosto.txt");
-        assertEquals(lataaja.parsiKirja(),false);
+        assertEquals(lataaja.parsiViite(),false);
     }
 
 }

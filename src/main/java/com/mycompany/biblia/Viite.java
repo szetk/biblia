@@ -88,14 +88,19 @@ public class Viite {
 
     public boolean onPakollisetKentat() {
         if (this.kentat.get("id") == null) {
+            System.out.println("id");
             return false;
         } else if (this.kentat.get("author") == null) {
+            System.out.println("auth");
             return false;
         } else if (this.kentat.get("title") == null) {
+            System.out.println("title");
             return false;
         } else if (this.kentat.get("year") == null) {
+            System.out.println("year");
             return false;
         } else if (this.kentat.get("viitetyyppi") == null) {
+            System.out.println("viitetyyppi");
             return false;
         }
         return true;

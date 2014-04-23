@@ -14,6 +14,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +48,23 @@ public class ViitteidenHallinta {
         kirjoittaja.write(""); // tiedoston tyhjennys
         kirjoittaja.close();
         for (Viite ref : viitteet) {
-            Tallenna save = new Tallenna(ref.toString());
+       /*   String oneLine = "@" + ref.get("viitetyyppi") + "{ \"" + ref.get("id") + "\",\n";
+          Tallenna save = new Tallenna (oneLine);
+        for (Map.Entry<String, String> e : ref.getKentat().entrySet()) {
+            if (!e.getKey().equals("viitetyyppi") && !e.getKey().equals("id") && !e.getKey().equals("year")) {
+                oneLine = e.getKey() + " = \"" + e.getValue() + "\",\n";
+                save = new Tallenna(oneLine);
+            }
+        }
+        // laitetaan aina loppuun vuosi, niin on vähän helpomi testailla, ja muutenkin homma menee nätimmin
+        oneLine = "year = \"" + ref.get("year") + "\"\n}\n"; 
+        save = new Tallenna(oneLine);
+            */
+            
+            
+            
+           Tallenna save = new Tallenna(ref.toString());
+            System.out.println(ref.toString());
             save.tallennaTiedostoon(tiedostonNimi);
         }
     }
@@ -78,7 +95,7 @@ public class ViitteidenHallinta {
         }
         System.out.println("Viitettä ei löytynyt");
         Viite failed = new Viite();
-        failed.setViitetyyppi("failed");
+        failed.set("viitetyyppi","failed");
         return failed;
     }
 

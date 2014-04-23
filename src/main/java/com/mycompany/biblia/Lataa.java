@@ -42,13 +42,17 @@ public class Lataa {
         String[] tokens;
         String delims = "[@{\"]+";
         try {
-                reader.readLine();
+                nextLine=reader.readLine();
+                tokens = nextLine.split(delims);
+                v.set("id",tokens[3]);
+                v.set("viitetyyppi", tokens[1]);
                 nextLine=reader.readLine();
             while (!nextLine.contains("}")) {
                 
                 tokens = nextLine.split(delims);
-                System.out.println(tokens[0].substring(0, tokens[0].length()-2));
-                System.out.println(tokens[1]);
+                String avain=tokens[0].replaceAll("\\s+",""); //whitespacet pois
+                        avain=avain.substring(0, avain.length()-1); // '='-merkki pois
+                v.set(avain, tokens[1]);
                 nextLine = reader.readLine();
             }
             /*
@@ -69,7 +73,7 @@ public class Lataa {
 
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Tiedoston luku loppui");
             return false;
         }
 
@@ -88,7 +92,7 @@ public class Lataa {
      *
      * Käyttää this.v-oliota...
      */
-    public void muodostaViite(String id) {
+   /* public void muodostaViite(String id) {
 
        try {
             String rivi = "";
@@ -96,7 +100,7 @@ public class Lataa {
                 if (rivi.contains("{ \"" + id)) {
                     reader.reset();
                     parsiViite();
-                    this.v.setId(id);
+                    this.v.set("id",id);
                     return;
                 }
                 reader.mark(1000);
@@ -111,7 +115,7 @@ public class Lataa {
         } catch (Exception e) {
             System.out.println("Viitettä ei löytynyt");
         }
-    }
+    }*/
 
     public Viite getViite() {
         return this.v;
