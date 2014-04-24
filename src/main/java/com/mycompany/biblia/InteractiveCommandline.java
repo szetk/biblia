@@ -208,7 +208,7 @@ public class InteractiveCommandline {
     private String generoiId(Viite viite) {
         if (viite.get("author") != null && viite.get("year")!=null) {
             if (viite.get("author").length() > 2 && viite.get("year").length() > 2 ) {
-                String sukunimenEkat = viite.get("author").substring(0, 2).toUpperCase();
+                String sukunimenEkat = viite.get("author").substring(0, 2).toUpperCase().replaceAll("Ä", "A").replaceAll("Ö", "O");
                 String vuosiluvunVikat = viite.get("year").substring(viite.get("year").length() - 2);
                 return sukunimenEkat + vuosiluvunVikat;
 
