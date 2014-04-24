@@ -109,13 +109,13 @@ public class InteractiveCommandline {
                     boolean contained = false;
                     for (String haku : haettavat) {
                        try {
-                           if (viite.get(haku).contains(hakusana)) {
+                         if (viite.get(haku).contains(hakusana)) {
                             contained = true;
                             break;
-                           }
+                         }
                         } catch (Exception e) { }
                     }
-                    match.add(viite);
+                    if (contained) match.add(viite);
                 }
                 listaa(match);
                 break;
