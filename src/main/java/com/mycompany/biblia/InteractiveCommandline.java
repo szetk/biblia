@@ -14,7 +14,9 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
+
     private static String helpText = "Anna toiminto\n u Uusi viite\n r Lataa viitteet tiedostosta\n l Listaa viitteet\n c Liitä viite\n s Hae viite\n m Muokkaa viitettä\n p Poista viite\n t Tallenna viitteet tiedostoon\n q Poistu\n";
+
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -85,11 +87,28 @@ public class InteractiveCommandline {
             case 'p':
                 this.viitteidenHallinta.poista(haeViite());
                 break;
-            case 's':
+            case 'i':
                 haettu = haeViite();
                 if (!haettu.get("viitetyyppi").equals("failed")) {
                     output.println(haettu);
                 }
+                break;
+            case 's':
+                String hakusana = getValue("Hakusana: ");
+                ArrayList<Viite> viitteet = viitteidenHallinta.getViitteet();
+                ArrayList<Viite> match = new ArrayList<Viite>();
+                String[] haettavat = {"author", "year", "title"};
+                for (Viite viite : viitteet) {
+                    boolean contained = false;
+                    for (String haku : haettavat) {
+                        if (viite.get(haku).contains(hakusana)) {
+                            contained = true;
+                            break;
+                        }
+                    }
+                    match.add(viite);
+                }
+                listaa(match);
                 break;
             case 't':
                 String tiedostonimi = getValue("Anna tallennettavan tiedoston nimi \n");

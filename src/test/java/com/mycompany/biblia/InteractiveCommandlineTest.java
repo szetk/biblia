@@ -132,5 +132,14 @@ public class InteractiveCommandlineTest extends TestCase {
         cmdline.run();
         // fixme what could be asserted here?
     }
+    
+    public void testHaeAuthor() throws IOException {
+        cmdline.endLast();
+        when(input.readLine())
+            .thenReturn("s")
+            .thenReturn("a");
+
+        cmdline.run();
+    }
 
 }
