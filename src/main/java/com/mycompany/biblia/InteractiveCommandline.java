@@ -87,7 +87,7 @@ public class InteractiveCommandline {
             case 'p':
                 haettu = haeViite();
                 if (!haettu.get("viitetyyppi").equals("failed")) {
-                this.viitteidenHallinta.poista(haeViite());
+                this.viitteidenHallinta.poista(haettu);
                 output.println("Poistettu");
                 }
                 else{
@@ -104,14 +104,16 @@ public class InteractiveCommandline {
                 String hakusana = getValue("Hakusana: ");
                 ArrayList<Viite> viitteet = viitteidenHallinta.getViitteet();
                 ArrayList<Viite> match = new ArrayList<Viite>();
-                String[] haettavat = {"author", "year", "title"};
+                String[] haettavat = {"author", "editor", "year", "title"};
                 for (Viite viite : viitteet) {
                     boolean contained = false;
                     for (String haku : haettavat) {
-                        if (viite.get(haku).contains(hakusana)) {
+                       try {
+                         if (viite.get(haku).contains(hakusana)) {
                             contained = true;
                             break;
-                        }
+                         }
+                        } catch (Exception e) { }
                     }
                     if (contained) match.add(viite);
                 }
