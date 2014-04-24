@@ -113,7 +113,7 @@ public class InteractiveCommandline {
                             break;
                         }
                     }
-                    match.add(viite);
+                    if (contained) match.add(viite);
                 }
                 listaa(match);
                 break;
