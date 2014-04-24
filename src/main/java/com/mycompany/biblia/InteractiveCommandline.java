@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-    private static String helpText =
-        "Anna toiminto (u Uusi viite, r Lataa viitteet tiedostosta, l Listaa viitteet, c Liitä viite, i Hae id:n perusteella, s Hae viitettä, m Muokkaa viitettä, p Poista viite, t Tallenna viitteet tiedostoon, q Poistu)";
+
+    private static String helpText = "Anna toiminto\n u Uusi viite\n r Lataa viitteet tiedostosta\n l Listaa viitteet\n c Liitä viite\n s Hae viite\n m Muokkaa viitettä\n p Poista viite\n t Tallenna viitteet tiedostoon\n q Poistu\n";
+
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -181,7 +182,7 @@ public class InteractiveCommandline {
             return viite;
 
         } else {
-            output.println("Et syöttänyt tarvittavia kenttiä"); //TODO listaa puuttuvat tarvittavat
+            output.println("Viitteen tiedot vajaat"); //TODO listaa puuttuvat tarvittavat
             return new Viite();
         }
 
