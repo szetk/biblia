@@ -2,7 +2,7 @@ import com.mycompany.biblia.InteractiveCommandlineTest;
 import com.mycompany.biblia.App;
 import java.util.ArrayList;
 
-description 'Artona haluan lisätä viitteen'
+description 'Artona haluan lisätä erilaisia viitteitä'
 
 scenario "Syötetään oikeat tiedot", {
     given 'valitaan lisäys', {
@@ -20,6 +20,14 @@ scenario "Syötetään oikeat tiedot", {
         args.add("journal")
         args.add("11")
         args.add("12")
+        args.add("u")
+        args.add("1")
+        args.add("author2")
+        args.add("")
+        args.add("titteli")
+        args.add("2013")
+        args.add("")
+        args.add("")
         args.add("q")
 
         ict.setInput(args);

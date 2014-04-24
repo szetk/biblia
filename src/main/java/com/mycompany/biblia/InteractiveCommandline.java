@@ -85,7 +85,14 @@ public class InteractiveCommandline {
                 }
                 break;
             case 'p':
+                haettu = haeViite();
+                if (!haettu.get("viitetyyppi").equals("failed")) {
                 this.viitteidenHallinta.poista(haeViite());
+                output.println("Poistettu");
+                }
+                else{
+                  output.println("Poisto ei onnistunut");
+                }
                 break;
             case 'i':
                 haettu = haeViite();

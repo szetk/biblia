@@ -125,9 +125,7 @@ public class Viite {
         for (Entry<String, String> e : this.kentat.entrySet()) {
             if (!e.getKey().equals("viitetyyppi") && !e.getKey().equals("id") && !e.getKey().equals("year")) {
                 String arvo = e.getValue();
-                System.out.println(arvo);
                 String avain = e.getKey();
-                System.out.println(avain);
                 if(arvo!=null && !arvo.equals("null")){
                 inOneString += avain + " = \"" + arvo + "\",\n";
                 }
