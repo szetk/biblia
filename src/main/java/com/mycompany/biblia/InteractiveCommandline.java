@@ -108,12 +108,12 @@ public class InteractiveCommandline {
                 for (Viite viite : viitteet) {
                     boolean contained = false;
                     for (String haku : haettavat) {
-                        if (hakusana) {
+                       try {
                            if (viite.get(haku).contains(hakusana)) {
                             contained = true;
                             break;
                            }
-                        }
+                        } catch (Exception e) { }
                     }
                     match.add(viite);
                 }
