@@ -1,6 +1,6 @@
-@Book{ "aa", 
+@Book{ "aa",
 author = "ville",
-publisher  = "null", 
-title  = "testi", 
+publisher  = "null",
+title  = "testi",
 year   = "2014"
  }

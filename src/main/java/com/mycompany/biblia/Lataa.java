@@ -61,7 +61,8 @@ public class Lataa {
                 tokens = nextLine.split("[=]+");
                 String avain = tokens[0].replaceAll("\\s+", "").toLowerCase(); //whitespacet pois ja capsit veks avaimesta
 
-                String arvo = tokens[1];
+                String arvo = tokens[1].replaceAll("\\s+$", "");
+                
                 while (arvo.charAt(arvo.length() - 1) == ',' || arvo.charAt(arvo.length() - 1) == '}') { //pilkku ja sulut pois lopusta
                     arvo = arvo.substring(0, arvo.length() - 1);
                 }
