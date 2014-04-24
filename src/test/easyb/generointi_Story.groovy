@@ -9,27 +9,20 @@ scenario "Syötetään oikeat tiedot", {
         ict = new InteractiveCommandlineTest();
 
         args = new ArrayList<String>();
-        args.add("u")
-        args.add("0")
-        args.add("author")
-        args.add("title")
-        args.add("1999")
-        args.add("address")
-        args.add("publisher")
-        args.add("")
-        args.add("journal")
-        args.add("11")
-        args.add("12")
-
+        args.add("r")
+        args.add("lataa_testitiedosto.txt")
+        args.add("t")
+        args.add("tallenna_testitiedosto.txt")
+        args.add("q")
         ict.setInput(args);
     }
 
-    when 'lisäyksen tiedot on syötetty oikein', {
+    when 'generoinnin komennot on annettu oikein', {
        ict.cmdline.run()
     }
 
-    then 'lisäys luodaan', {
-       ict.getOutput().shouldHave("Viitteen luonti onnistui")
+    then 'generointi onnistuu', {
+       ict.getOutput().shouldHave("Tallennettu")
     }
 }
 

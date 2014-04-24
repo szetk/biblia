@@ -14,8 +14,7 @@ import java.util.logging.Logger;
 public class InteractiveCommandline {
 
     private static String welcomeMsg = "Biblia testiversio 0.0.0.\n";
-    private static String helpText
-            = "Anna toiminto (u Uusi viite, l Listaa viitteet, c Liitä viite, s Hae viite, m Muokkaa viitettä, p Poista viite, t Tallenna viitteet tiedostoon, q Poistu)";
+    private static String helpText = "Anna toiminto (u Uusi viite, r Lataa viitteet tiedostosta, l Listaa viitteet, c Liitä viite, s Hae viite, m Muokkaa viitettä, p Poista viite, t Tallenna viitteet tiedostoon, q Poistu)";
     private PrintStream output;
     private BufferedReader input;
     private boolean doend = false;
@@ -28,11 +27,7 @@ public class InteractiveCommandline {
         this.output = output;
         this.input = input;
         this.viitteidenHallinta = new ViitteidenHallinta();
-        try {
-            this.viitteidenHallinta.lataaViitteetTiedostosta("Biblia.bib");
-        } catch (IOException ex) {
-            Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
 
     }
 
@@ -62,7 +57,10 @@ public class InteractiveCommandline {
     private void processAction(char action) throws IOException {
         switch (action) {
             case 'u':
-                this.viitteidenHallinta.talleta(getReference());
+                Viite tallennettava = getReference();
+                if (tallennettava.onPakollisetKentat()) {
+                    this.viitteidenHallinta.talleta(tallennettava);
+                }
                 break;
             case 'l':
                 listaa(this.viitteidenHallinta.getViitteet());
@@ -74,23 +72,38 @@ public class InteractiveCommandline {
                 this.viitteidenHallinta.talleta(getRawReference());
                 break;
             case 'm':
-                String id = haeViite().get("id");
-                Viite vnew = getReference();
-                vnew.set("id",id);
-                this.viitteidenHallinta.korvaa(vnew);
+                Viite haettu = haeViite();
+                if (!haettu.get("viitetyyppi").equals("failed")) {
+                    String id = haettu.get("id");
+                    Viite vnew = getReference();
+                    if (vnew.onPakollisetKentat()) {
+                        vnew.set("id", id);
+                        this.viitteidenHallinta.korvaa(vnew);
+                    }
+                }
                 break;
             case 'p':
                 this.viitteidenHallinta.poista(haeViite());
                 break;
             case 's':
-                Viite haettu=haeViite();
-                if(!haettu.get("viitetyyppi").equals("failed")){
-                    System.out.println(haettu);
+                haettu = haeViite();
+                if (!haettu.get("viitetyyppi").equals("failed")) {
+                    output.println(haettu);
                 }
                 break;
-            case 't' :
+            case 't':
                 String tiedostonimi = getValue("Anna tallennettavan tiedoston nimi \n");
                 viitteidenHallinta.tallennaViitteetTiedostoon(tiedostonimi);
+                output.println("Tallennettu");
+                break;
+            case 'r':
+                try {
+                    this.viitteidenHallinta.lataaViitteetTiedostosta(getValue("Anna ladattavan tiedoston nimi\n"));
+                    listaa(this.viitteidenHallinta.getViitteet());
+                } catch (IOException ex) {
+                    output.println("Virhe tiedostoa luettaessa");
+                    //Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 break;
             default:
                 output.println("Toimintoa ei tunnistettu: " + action);
@@ -109,58 +122,52 @@ public class InteractiveCommandline {
         ArrayList<String> refFields = dict.get(refType);
 
         Viite viite = new Viite();
-        viite.set("viitetyyppi",refType);
+        viite.set("viitetyyppi", refType);
 
         String value;
         for (String field : refFields) {
             value = getValue(field + ": ");
-
-            if (field == "address") {
-                viite.set("address",value);
-            } else if (field == "author") {
-               String authors = value;
-                boolean lisaa = true;
-                while(lisaa){
-                    String viela = getValue("Lisää uusi author? k/e");
-                    if(viela.equals("k")){
-                        authors = authors + " and "+getValue("author: ");
-                    }
-                    else{
-                        lisaa=false;
-                    }
-                }
-                System.out.println(authors);
-                 viite.set("author",authors);
-            } else if (field == "booktitle") {
-                viite.set("booktitle",value);
-//            } else if (field == "id") {
-//                viite.setId(value);
-            } else if (field == "journal") {
-                viite.set("journal",value);
-            } else if (field == "number") {
-                try {
-                    viite.set("number", value); // TODO may fail!
-                } catch (Exception e) {
-                }
-            } else if (field == "pages") {
-                viite.set("pages",value);
-            } else if (field == "publisher") {
-                viite.set("publisher",value);
-            } else if (field == "title") {
-                viite.set("title",value);
-            } else if (field == "volume") {
-                try {
-                    viite.set("volume",value); // TODO may fail
-                } catch (Exception e) {
-                }
-            } else if (field == "year") {
-                viite.set("year",value);
+            if (value.equals("")) {
+                value = null;
             }
+            viite.set(field, value);
+
+            /*
+             * if (field == "address") { viite.set("address", value); } else if
+             * (field == "author") { String authors = value; /* boolean lisaa =
+             * true; while (lisaa) { String viela = getValue("Lisää uusi author?
+             * k/e"); if (viela.equals("k")) { authors = authors + " and " +
+             * getValue("author: "); } else { lisaa = false; } }
+             */
+            /*
+             * viite.set("author", authors);
+             *
+             * } else if (field == "editor") { viite.set("editor", value); }
+             * else if (field == "booktitle") { viite.set("booktitle", value);
+             * // } else if (field == "id") { // viite.setId(value); } else if
+             * (field == "journal") { viite.set("journal", value); } else if
+             * (field == "number") { try { viite.set("number", value); // TODO
+             * may fail! } catch (Exception e) { } } else if (field == "pages")
+             * { viite.set("pages", value); } else if (field == "publisher") {
+             * viite.set("publisher", value); } else if (field == "title") {
+             * viite.set("title", value); } else if (field == "volume") { try {
+             * viite.set("volume", value); // TODO may fail } catch (Exception
+             * e) { } } else if (field == "year") { viite.set("year", value); }
+             */
         }
-        String id = generoiId(viite);
-        viite.set("id",id);
-        System.out.println(viite);
-        return viite;
+            String id = generoiId(viite);
+            viite.set("id", id);
+            if(viite.onPakollisetKentat()){
+            output.println(viite);
+            output.println("Viitteen luonti onnistui");
+            return viite;
+
+        } else {
+            output.println("Et syöttänyt tarvittavia kenttiä"); //TODO listaa puuttuvat tarvittavat
+            return new Viite();
+        }
+
+
     }
 
     /**
@@ -171,12 +178,29 @@ public class InteractiveCommandline {
      * @return generoitu id
      */
     private String generoiId(Viite viite) {
-        String sukunimenEkat = viite.get("author").substring(0, 2).toUpperCase();
-        String vuosiluvunVikat = viite.get("year").substring(viite.get("year").length() - 2);
-        return sukunimenEkat + vuosiluvunVikat;
-    }
+        if (viite.get("author") != null && viite.get("year")!=null) {
+            if (viite.get("author").length() > 2 && viite.get("year").length() > 2 ) {
+                String sukunimenEkat = viite.get("author").substring(0, 2).toUpperCase();
+                String vuosiluvunVikat = viite.get("year").substring(viite.get("year").length() - 2);
+                return sukunimenEkat + vuosiluvunVikat;
 
-    private Viite getRawReference() throws IOException {
+            } else {
+                return null;
+            }
+        } else if (viite.get("editor") != null && viite.get("year")!=null) {
+          if (viite.get("editor").length() > 2 && viite.get("year").length() > 2 ) {
+            String sukunimenEkat = viite.get("editor").substring(0, 2).toUpperCase();
+            String vuosiluvunVikat = viite.get("year").substring(viite.get("year").length() - 2);
+            return sukunimenEkat + vuosiluvunVikat;
+        } else {
+            output.println("Auth/edit ei tarpeeksi pitka");
+            return null;
+        }
+    }
+        else return null;
+
+}
+private Viite getRawReference() throws IOException {
         ArrayList<String> lines = new ArrayList<String>();
 
         String input;
@@ -241,10 +265,14 @@ public class InteractiveCommandline {
 //        output.println("Viitteen luonti onnistui");
 //    }
     private void listaa(ArrayList<Viite> viitteet) {
-        output.println("Listataan Biblian viitteet muodossa: id, viitetyyppi, author, title, year");
-        for (Viite viite : viitteet) {
-            output.println(viite);
-            //output.println(viite.getId() + ", " + viite.getViitetyyppi() + ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
+        if (viitteet.size() == 0) {
+            output.println("Ei viitteitä");
+        } else {
+            output.println("Listataan Biblian viitteet");
+            for (Viite viite : viitteet) {
+                output.println(viite);
+                //output.println(viite.getId() + ", " + viite.getViitetyyppi() + ", " + viite.getAuthor() + ", " + viite.getTitle() + ", " + viite.getYear());
+            }
         }
     }
 
@@ -269,8 +297,14 @@ public class InteractiveCommandline {
             output.println("Anna viitteen id:");
             try {
                 id = getValue("> ");
-            } catch (IOException ex) {
-                Logger.getLogger(InteractiveCommandline.class.getName()).log(Level.SEVERE, null, ex);
+            
+
+
+
+} catch (IOException ex) {
+                Logger.getLogger(InteractiveCommandline.class  
+
+.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return id;

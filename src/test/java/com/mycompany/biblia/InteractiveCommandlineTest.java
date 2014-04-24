@@ -19,7 +19,7 @@ public class InteractiveCommandlineTest extends TestCase {
 
     public void setInput(ArrayList<String> args) throws IOException {
         setUp();
-        cmdline.endLast();
+       // cmdline.endLast();  //ei voi ajaa useampia komentoja
         OngoingStubbing<String> a = when(input.readLine());
         for (String arg : args) {
                 a = a.thenReturn(arg);
@@ -59,7 +59,10 @@ public class InteractiveCommandlineTest extends TestCase {
 
     public void testViitteidenListaus() throws IOException {
         cmdline.endLast();
-        when(input.readLine()).thenReturn("l");
+        when(input.readLine())
+                .thenReturn("r")
+                .thenReturn("lataa_testitiedosto.txt")
+                .thenReturn("l");
         cmdline.run();
 
         assertThat(baos.toString(), containsString("Listataan Biblian viitteet"));
@@ -110,12 +113,14 @@ public class InteractiveCommandlineTest extends TestCase {
     public void testHae() throws IOException {
         cmdline.endLast();
         when(input.readLine())
+            .thenReturn("r")
+            .thenReturn("Biblia.bib")
             .thenReturn("s")
             .thenReturn("aa1");
 
         cmdline.run();
 
-        assertThat(baos.toString(), containsString("Book"));
+        assertThat(baos.toString(), containsString("book"));
     }
 
     public void testPoista() throws IOException {

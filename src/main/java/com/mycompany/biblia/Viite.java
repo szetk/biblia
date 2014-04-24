@@ -52,6 +52,7 @@ public class Viite {
         ArrayList<String> kirjanKentat = new ArrayList<String>();
         //kirjanKentat.add("id");
         kirjanKentat.add("author");
+        kirjanKentat.add("editor");
         kirjanKentat.add("title");
         kirjanKentat.add("year");
         kirjanKentat.add("address");
@@ -87,19 +88,20 @@ public class Viite {
     }
 
     public boolean onPakollisetKentat() {
-        if (this.kentat.get("id") == null) {
+       if (this.kentat.get("id") == null) {
             System.out.println("id");
             return false;
-        } else if (this.kentat.get("author") == null) {
-            System.out.println("auth");
+        } else if (this.kentat.get("author") == null && this.kentat.get("editor")==null) {
+            System.out.println("auth/edit");
             return false;
-        } else if (this.kentat.get("title") == null) {
+        }
+        else if (this.kentat.get("title") == null || this.kentat.get("title").length()<2) {
             System.out.println("title");
             return false;
-        } else if (this.kentat.get("year") == null) {
+        } else if (this.kentat.get("year") == null || this.kentat.get("year").length()<2) {
             System.out.println("year");
             return false;
-        } else if (this.kentat.get("viitetyyppi") == null) {
+        } else if (this.kentat.get("viitetyyppi") == null || this.kentat.get("viitetyyppi").length()==0) {
             System.out.println("viitetyyppi");
             return false;
         }
@@ -119,7 +121,7 @@ public class Viite {
         if(!onPakollisetKentat()){
             return "Viitteellä ei ole kaikkia pakollisia kenttiä";
         }
-        String inOneString = "@" + get("viitetyyppi") + "{ \"" + get("id") + "\",\n";
+        String inOneString = "@" + get("viitetyyppi") + "{ " + get("id") + ",\n";
         for (Entry<String, String> e : this.kentat.entrySet()) {
             if (!e.getKey().equals("viitetyyppi") && !e.getKey().equals("id") && !e.getKey().equals("year")) {
                 inOneString += e.getKey() + " = \"" + e.getValue() + "\",\n";

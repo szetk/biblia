@@ -20,6 +20,7 @@ scenario "Syötetään oikeat tiedot", {
         args.add("journal")
         args.add("11")
         args.add("12")
+        args.add("q")
 
         ict.setInput(args);
     }

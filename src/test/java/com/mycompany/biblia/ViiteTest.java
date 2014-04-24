@@ -55,7 +55,7 @@ public class ViiteTest extends TestCase {
         viite.set("viitetyyppi", "Book");
         viite.set("publisher", "");
         
-        assertContains(viite.toString(), "@Book{ \"1\",\n");
+        assertContains(viite.toString(), "@Book{ 1,\n");
         assertContains(viite.toString(), "author = \"tekija\",\n");
         assertContains(viite.toString(), "title = \"otsikko\",\n");
         assertContains(viite.toString(), "publisher = \"\",\n");
@@ -63,11 +63,7 @@ public class ViiteTest extends TestCase {
         
     }
     
-    public void testTyhjaKentta2(){
-        Viite viite = new Viite("1", "tekija", "", "1999");
-        viite.set("viitetyyppi", "Book");
-        assertContains(viite.toString(), "title = \"\",\n");
-    }
+
     
     public void testPuuttuvaKentta(){
         Viite viite = new Viite();
@@ -85,7 +81,11 @@ public class ViiteTest extends TestCase {
         // huom! ei ole annettu viitetyyppiä
         assertEquals("Viitteellä ei ole kaikkia pakollisia kenttiä", viite.toString());
     }
-    
+        public void testPuuttuvaKentta4(){
+        Viite viite = new Viite("1", "tekija", "", "1999");
+        viite.set("viitetyyppi", "Book");
+        assertContains(viite.toString(), "Viitteellä ei ole kaikkia pakollisia kenttiä");
+    }
 
     public void testToString() {
         Viite viite = new Viite();
@@ -96,13 +96,13 @@ public class ViiteTest extends TestCase {
         viite.set("title", "otsikko");
         viite.set("year", "1999");
 
-        assertContains(viite.toString(), "@Book{ \"1\",\n");
+        assertContains(viite.toString(), "@Book{ 1,\n");
         assertContains(viite.toString(), "author = \"tekija\",\n");
         assertContains(viite.toString(), "title = \"otsikko\",\n");
         assertContains(viite.toString(), "publisher = \"julkaisija\",\n");
         assertContains(viite.toString(), "year = \"1999\"\n}\n");
 
-        assertEquals("@Book{ \"1\",\n"
+        assertEquals("@Book{ 1,\n"
                 + "author = \"tekija\",\n"
                 + "title = \"otsikko\",\n"
                 + "publisher = \"julkaisija\",\n"

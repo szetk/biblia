@@ -40,21 +40,37 @@ public class Lataa {
         v = new Viite();
         String nextLine = "";
         String[] tokens;
-        String delims = "[@{\"]+";
+        String delims = "[@{}\"]+";
         try {
-                nextLine=reader.readLine();
-                tokens = nextLine.split(delims);
-                v.set("id",tokens[3]);
-                v.set("viitetyyppi", tokens[1]);
-                nextLine=reader.readLine();
-            while (!nextLine.contains("}")) {
-                
-                tokens = nextLine.split(delims);
-                String avain=tokens[0].replaceAll("\\s+",""); //whitespacet pois
-                        avain=avain.substring(0, avain.length()-1); // '='-merkki pois
-                v.set(avain, tokens[1]);
+            nextLine = reader.readLine();
+            nextLine = nextLine.replaceAll("\\s+", "");
+            while (!nextLine.contains("@")) { //rivinvaihdot pois
                 nextLine = reader.readLine();
             }
+               // System.out.println("nextLine: "+nextLine);
+                tokens = nextLine.split(delims);
+                v.set("viitetyyppi", tokens[1].toLowerCase());
+                v.set("id", tokens[2].substring(0, tokens[2].length() - 1)); //pilkku pois
+                boolean viimeinenRivi = true;
+                while (viimeinenRivi) {
+                    nextLine = reader.readLine();
+                   //  System.out.println("nextLine: "+nextLine);
+                    String loppu = nextLine.replaceAll("\\s+", ""); //kokeillaan onko lopetus, whitespacet pois jolloin ensimmäinen merkki on }
+                    if (loppu.charAt(0) == '}') {
+                        viimeinenRivi = false;
+                    } else {
+                        tokens = nextLine.split(delims);
+                        String avain = tokens[0].replaceAll("\\s+", "").toLowerCase(); //whitespacet pois ja capsit veks avaimesta
+                        avain = avain.substring(0, avain.length() - 1); // '='-merkki pois
+                        while (tokens[1].charAt(tokens[1].length() - 1) == ',' || tokens[1].charAt(tokens[1].length() - 1) == '}') { //pilkku ja sulut pois lopusta
+                            tokens[1] = tokens[1].substring(0, tokens[1].length() - 1);
+                        }
+                        v.set(avain, tokens[1]);
+                    }
+
+                }
+            
+          //  System.out.println(v);
             /*
              * String viitetyyppiJaId = reader.readLine();
              *
@@ -73,7 +89,7 @@ public class Lataa {
 
 
         } catch (Exception e) {
-            System.out.println("Tiedoston luku loppui");
+            System.out.println("Tiedosto luettu");
             return false;
         }
 
@@ -92,31 +108,17 @@ public class Lataa {
      *
      * Käyttää this.v-oliota...
      */
-   /* public void muodostaViite(String id) {
-
-       try {
-            String rivi = "";
-            while (true) {
-                if (rivi.contains("{ \"" + id)) {
-                    reader.reset();
-                    parsiViite();
-                    this.v.set("id",id);
-                    return;
-                }
-                reader.mark(1000);
-                rivi = reader.readLine();
-            }
-
-//            String seuraavarivi = "";
-//            while(!seuraavarivi.contains("}")){
-//                seuraavarivi = reader.readLine();
-//                System.out.println(seuraavarivi);
-//            }
-        } catch (Exception e) {
-            System.out.println("Viitettä ei löytynyt");
-        }
-    }*/
-
+    /*
+     * public void muodostaViite(String id) {
+     *
+     * try { String rivi = ""; while (true) { if (rivi.contains("{ \"" + id)) {
+     * reader.reset(); parsiViite(); this.v.set("id",id); return; }
+     * reader.mark(1000); rivi = reader.readLine(); }
+     *
+     * // String seuraavarivi = ""; // while(!seuraavarivi.contains("}")){ //
+     * seuraavarivi = reader.readLine(); // System.out.println(seuraavarivi); //
+     * } } catch (Exception e) { System.out.println("Viitettä ei löytynyt"); } }
+     */
     public Viite getViite() {
         return this.v;
     }
