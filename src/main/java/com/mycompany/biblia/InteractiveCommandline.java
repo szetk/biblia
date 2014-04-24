@@ -108,9 +108,11 @@ public class InteractiveCommandline {
                 for (Viite viite : viitteet) {
                     boolean contained = false;
                     for (String haku : haettavat) {
-                        if (hakusana && viite.get(haku).contains(hakusana)) {
+                        if (hakusana) {
+                           if (viite.get(haku).contains(hakusana)) {
                             contained = true;
                             break;
+                           }
                         }
                     }
                     match.add(viite);
